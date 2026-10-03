@@ -1,29 +1,331 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Joe Garvin</title>
-  <meta name="robots" content="noindex">
-  <style>
-    html, body { height: 100%; margin: 0; }
-    body {
-      display: grid;
-      place-items: center;
-      background: #faf8f5;
-      color: #2b2823;
-      font-family: Georgia, "Times New Roman", serif;
-      text-align: center;
-      padding: 0 16px;
-    }
-    h1 { font-size: 1.75rem; font-weight: normal; margin: 0 0 0.5rem; }
-    p { margin: 0; color: #6b655c; }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Joe Garvin · writer and content strategist</title>
+<meta name="description" content="Joe Garvin is a writer and content strategist. A new site is being written.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#faf8f5">
+<meta property="og:title" content="Joe Garvin">
+<meta property="og:description" content="Writer and content strategist. A new site is being written.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://joegarvin.com/">
+<link rel="canonical" href="https://joegarvin.com/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23faf8f5'/%3E%3Cg fill='none' stroke='%233d4257' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 11l4-3 3 4 4-4 3 3 4-2'/%3E%3Cpath d='M7 18h5m3 0h9'/%3E%3Cpath d='M7 24h11m3 0h3'/%3E%3C/g%3E%3C/svg%3E">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --paper:#faf8f5; --ink:#3d4257; --ink-soft:#6a6d80; --rule:#dcd7cd;
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+    --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+    --m:clamp(24px,6.4vw,112px);
+  }
+  html,body{height:100%}
+  body{background:var(--paper);color:var(--ink);font-family:var(--serif);overflow:hidden;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+
+  #sheet{position:fixed;inset:0;width:100%;height:100%;display:block}
+
+  /* film grain: a fine layer, an uneven copy of it, and a few light specks */
+  .grain{position:fixed;inset:0;pointer-events:none;z-index:1}
+  .grain i{position:absolute;inset:0;mix-blend-mode:multiply}
+  .grain i:nth-child(1),.grain i:nth-child(2){background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.3' numOctaves='1' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .3  0 0 0 0 .26  0 0 0 0 .2  0 0 0 5 -2.7'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .grain i:nth-child(1){opacity:.3}
+  .grain i:nth-child(2){opacity:.3;background-size:310px 310px;
+    -webkit-mask-image:var(--mask);mask-image:var(--mask);-webkit-mask-size:900px 900px;mask-size:900px 900px}
+  .grain i:nth-child(3){opacity:.22;mix-blend-mode:normal;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='1' seed='9' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 .97  0 0 0 6 -3.5'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  :root{--mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='900'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.006' numOctaves='3' seed='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 5 -2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+  main{position:fixed;z-index:2;left:var(--m);top:46%;transform:translateY(-50%);max-width:21rem;text-transform:lowercase}
+  h1{font-weight:400;font-size:clamp(2.1rem,3.5vw,3rem);letter-spacing:-.012em;line-height:1.04}
+  .role{font-family:var(--mono);font-size:.74rem;letter-spacing:.06em;color:var(--ink-soft);margin-top:.95rem}
+  .note{font-size:1.02rem;line-height:1.6;margin-top:1.5rem;padding-top:1.15rem;border-top:1px solid var(--rule);max-width:17rem}
+  .note span{display:block;color:var(--ink-soft);font-style:italic}
+
+  /* the text arrives a moment before the page starts writing itself */
+  @media (prefers-reduced-motion:no-preference){
+    main > *{opacity:0;transform:translateY(6px);animation:rise .9s cubic-bezier(.2,.7,.2,1) forwards}
+    main > :nth-child(2){animation-delay:.12s}
+    main > :nth-child(3){animation-delay:.26s}
+    @keyframes rise{to{opacity:1;transform:none}}
+  }
+
+  @media (max-width:700px){
+    main{left:24px;right:24px;top:max(40px,env(safe-area-inset-top));transform:none;max-width:none}
+    .note{margin-top:1.15rem;padding-top:.95rem}
+  }
+  @media (max-height:520px) and (min-width:701px){ main{top:50%} .note{margin-top:1rem;padding-top:.8rem} }
+</style>
 </head>
 <body>
-  <main>
-    <h1>Joe Garvin</h1>
-    <p>Site coming soon.</p>
-  </main>
+<canvas id="sheet" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"><i></i><i></i><i></i></div>
+
+<main>
+  <h1>Joe Garvin</h1>
+  <p class="role">Writer · content strategist</p>
+  <p class="note">A new site is being written. <span>Coming soon.</span></p>
+</main>
+
+<script>
+/*
+  The drawing: a ruled page of writing in several invented hands, tilted back
+  in space, with one halftone block and one small color plate. It is generated
+  fresh in the browser from a fixed seed, so it is the same page for everyone,
+  fitted to each screen. Nothing here is an image file.
+*/
+(function () {
+  'use strict';
+  var cv = document.getElementById('sheet'), ctx = cv.getContext('2d');
+  if (!ctx) return;
+  var copy = document.querySelector('main');
+
+  var TAU = Math.PI * 2, SEED = 4071;
+  var INK = '#3d4257', BLUE = '#6d8db0';
+  var COLS = ['#c4705c', '#cfa24a', '#6d8db0', '#7c9d88'];
+
+  /* ---------- seeded random and smooth noise ---------- */
+  var R, N;
+  function mulberry(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+  function makeNoise(rng){
+    var tab=new Float32Array(256),perm=new Uint8Array(512),i,j,t;
+    for(i=0;i<256;i++){tab[i]=rng();perm[i]=i}
+    for(i=255;i>0;i--){j=(rng()*(i+1))|0;t=perm[i];perm[i]=perm[j];perm[j]=t}
+    for(i=0;i<256;i++)perm[i+256]=perm[i];
+    function s(v){return v*v*(3-2*v)}
+    return function(x,y){
+      var xi=Math.floor(x),yi=Math.floor(y),xf=x-xi,yf=y-yi,X=xi&255,Y=yi&255;
+      var a=tab[perm[X+perm[Y]]],b=tab[perm[X+1+perm[Y]]],c=tab[perm[X+perm[Y+1]]],d=tab[perm[X+1+perm[Y+1]]];
+      var u=s(xf),v=s(yf);return a+(b-a)*u+(c-a)*v+(a-b-c+d)*u*v;
+    };
+  }
+  function rr(a,b){return a+R()*(b-a)}
+  function pick(a){return a[(R()*a.length)|0]}
+
+  /* ---------- geometry: the text zone, the open area, the tilt ---------- */
+  var W=0,H=0,zone,F,mobile=false,ops=[],raf=0;
+  var xL=0,span=1,vy=0,K=.55,GAIN=1.1,XMAX=0;
+
+  function measure(){
+    var dpr=Math.min(window.devicePixelRatio||1,2);
+    W=window.innerWidth;H=window.innerHeight;mobile=W<=700;
+    cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);
+    var r=copy.getBoundingClientRect(),pad=mobile?14:34;
+    zone={x0:r.left-pad,y0:r.top-pad,x1:r.right+pad,y1:r.bottom+pad};
+    F=mobile?{x:0,y:zone.y1,w:W,h:H-zone.y1}:{x:zone.x1,y:0,w:W-zone.x1,h:H};
+    xL=F.x;span=F.w;vy=F.y+F.h*(mobile?.36:.43);XMAX=xL+span*1.9;
+  }
+  /* page space to screen space. Returns [x, y, scale]. */
+  function proj(x,y){
+    if(x<=xL)return[x,y,1];
+    var t=(x-xL)/span,s=1/(1+K*t);
+    return[xL+span*t*GAIN*s,vy+(y-vy)*s,s];
+  }
+  function clearOf(x,y){
+    var dx=Math.max(zone.x0-x,0,x-zone.x1),dy=Math.max(zone.y0-y,0,y-zone.y1);
+    return Math.hypot(dx,dy)>=26;
+  }
+  function visible(x,y){return x>-30&&y>-30&&x<W+30&&y<H+30}
+
+  /* ---------- a pen stroke, slightly unsteady, drawn twice ---------- */
+  function mark(pts,o){
+    var n=pts.length;if(n<2)return;
+    var sc=o.sc||1,w=(o.w||1.2)*sc,rough=(o.rough==null?1:o.rough)*sc,col=o.color||INK,a=o.a||1;
+    var sa=R()*900,sb=R()*900,P=[new Float32Array(n*2),new Float32Array(n*2)],Wd=[new Float32Array(n),new Float32Array(n)],pass,i,x,y;
+    for(pass=0;pass<2;pass++)for(i=0;i<n;i++){
+      x=pts[i][0];y=pts[i][1];
+      P[pass][i*2]=x+(N(x*.021+sa+pass*3,y*.021)-.5)*2.4*rough+(pass?.7*sc:0);
+      P[pass][i*2+1]=y+(N(x*.021,y*.021+sb+pass*3)-.5)*2.4*rough+(pass?.5*sc:0);
+      Wd[pass][i]=Math.max(.35,w*(pass?.6:1)*(.6+.85*N(i*.09+sa,pass*5.1+sb)));
+    }
+    ops.push(function(){
+      ctx.strokeStyle=col;ctx.lineCap='round';ctx.lineJoin='round';
+      for(var p=0;p<2;p++){
+        ctx.globalAlpha=p?.26*a:a;
+        for(var k=1;k<n;k++){ctx.lineWidth=Wd[p][k];ctx.beginPath();ctx.moveTo(P[p][k*2-2],P[p][k*2-1]);ctx.lineTo(P[p][k*2],P[p][k*2+1]);ctx.stroke()}
+      }
+      ctx.globalAlpha=1;
+    });
+  }
+  /* page-space path: project it, drop whatever lands on the text or off screen */
+  function ink(pts,o){
+    var run=[],sc=1,i,p;o=o||{};
+    for(i=0;i<pts.length;i++){
+      p=proj(pts[i][0],pts[i][1]);
+      if(clearOf(p[0],p[1])&&visible(p[0],p[1])){if(!run.length)sc=p[2];run.push(p)}
+      else{if(run.length>1)mark(run,{w:o.w,rough:o.rough,color:o.color,a:o.a,sc:sc});run=[]}
+    }
+    if(run.length>1)mark(run,{w:o.w,rough:o.rough,color:o.color,a:o.a,sc:sc});
+  }
+  function seg(x0,y0,x1,y1,step){
+    step=step||7;var n=Math.max(1,Math.ceil(Math.hypot(x1-x0,y1-y0)/step)),pts=[],i;
+    for(i=0;i<=n;i++)pts.push([x0+(x1-x0)*i/n,y0+(y1-y0)*i/n]);
+    return pts;
+  }
+  function quad(x,y,w,h){return[[x,y],[x+w,y],[x+w,y+h],[x,y+h]].map(function(p){return proj(p[0],p[1])})}
+
+  /* ---------- halftone block: an ordered dither, laid down in bands ---------- */
+  var BAYER=[0,8,2,10,12,4,14,6,3,11,1,9,15,7,13,5];
+  function halftone(q,t0,t1,ang){
+    if(!q.every(function(p){return clearOf(p[0],p[1])}))return;
+    var x0=1e9,y0=1e9,x1=-1e9,y1=-1e9,pm=1e9,pM=-1e9,ca=Math.cos(ang),sa=Math.sin(ang),s=3;
+    q.forEach(function(p){x0=Math.min(x0,p[0]);x1=Math.max(x1,p[0]);y0=Math.min(y0,p[1]);y1=Math.max(y1,p[1]);var pr=p[0]*ca+p[1]*sa;pm=Math.min(pm,pr);pM=Math.max(pM,pr)});
+    x0=Math.max(x0,-6);x1=Math.min(x1,W+6);y0=Math.max(y0,-6);y1=Math.min(y1,H+6);
+    var ys=Math.floor(y0/s)*s,band=s*5;
+    for(var b=ys;b<y1;b+=band)(function(b){
+      ops.push(function(){
+        ctx.save();ctx.beginPath();q.forEach(function(p,i){i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1])});ctx.closePath();ctx.clip();
+        ctx.fillStyle=INK;
+        for(var y=b;y<Math.min(b+band,y1);y+=s)for(var x=Math.floor(x0/s)*s;x<x1;x+=s){
+          var g=(x*ca+y*sa-pm)/(pM-pm||1),tone=t0+(t1-t0)*g;
+          if((BAYER[((x/s)&3)+4*((y/s)&3)]+.5)/16<tone)ctx.fillRect(x,y,1.9,1.9);
+        }
+        ctx.restore();
+      });
+    })(b);
+  }
+
+  /* ---------- the hands ---------- */
+  function hand(k,x0,y0,x1,y1,col){
+    var x,y,end,l,h,n,pts,px,py,i,len,amps,ph,c,xx;
+    if(k===0){ /* small broken dashes */
+      for(y=y0+7;y<y1-3;y+=8){end=x0+(x1-x0)*(R()<.14?rr(.3,.8):1);
+        for(x=x0;x<end-4;){l=rr(2,6);if(R()<.86)ink([[x,y+rr(-1.6,1.6)],[x+l,y+rr(-1.6,1.6)]],{w:1.5,rough:.25,color:col});x+=l+rr(2,4.5)}}
+    }else if(k===1){ /* upright ticks */
+      for(y=y0+13;y<y1-3;y+=16){end=x0+(x1-x0)*(R()<.2?rr(.4,.85):1);
+        for(x=x0+2;x<end-2;x+=rr(4,6.6)){h=rr(7,11);ink(seg(x,y,x+rr(-1.2,1.2),y-h,4),{w:2.3,rough:.3,color:col})}}
+    }else if(k===2){ /* heavy bars */
+      for(y=y0+8;y<y1-3;y+=10){for(x=x0;x<x1-8;){l=Math.min(rr(8,44),x1-x);if(R()<.9)ink(seg(x,y,x+l,y,6),{w:4.6,rough:.2,color:col});x+=l+rr(3,6)}}
+    }else if(k===3){ /* large angular characters */
+      for(y=y0+26;y<y1-4;y+=37){for(x=x0+2;x<x1-24;x+=rr(29,38)){
+        n=3+((R()*3)|0);pts=[];px=x;py=y-rr(0,18);
+        for(i=0;i<n;i++){var nx=x+(i+1)*22/n+rr(-3,3),ny=y-rr(0,20);pts=pts.concat(seg(px,py,nx,ny,5));px=nx;py=ny}
+        ink(pts,{w:3,rough:.5,color:col})}}
+    }else if(k===4){ /* a quick zigzag script */
+      for(y=y0+13;y<y1-3;y+=14){end=x0+(x1-x0)*(R()<.2?rr(.3,.8):1);
+        for(x=x0;x<end-10;){len=Math.min(rr(14,60),end-x);pts=[];amps=[];
+          for(ph=0;;ph+=Math.PI){c=Math.floor(ph/TAU);if(amps[c]===undefined)amps[c]=R()<.17?2.1:rr(.6,1.2);xx=x+ph*1.9;if(xx>x+len)break;
+            var yy=y-7*amps[c]*(.5-.5*Math.cos(ph));if(pts.length)pts=pts.concat(seg(pts[pts.length-1][0],pts[pts.length-1][1],xx,yy,4));else pts.push([xx,yy])}
+          ink(pts,{w:1,rough:.5,color:col});x+=len+rr(6,11)}}
+    }else{ /* a looping cursive */
+      for(y=y0+16;y<y1-4;y+=19){end=x0+(x1-x0)*(R()<.22?rr(.35,.8):1);
+        for(x=x0;x<end-12;){len=Math.min(rr(18,70),end-x);pts=[];amps=[];
+          for(ph=0;;ph+=.34){c=Math.floor(ph/TAU);if(amps[c]===undefined)amps[c]=R()<.18?2.2:R()<.1?-1:rr(.7,1.2);
+            xx=x+ph*2.3-3*Math.sin(ph);if(xx>x+len)break;pts.push([xx,y-8.5*amps[c]*(.5-.5*Math.cos(ph))])}
+          ink(pts,{w:1.05,rough:.45,color:col});x+=len+rr(8,13)}}
+    }
+  }
+
+  /* ---------- the color plate: bands following one current, never touching ---------- */
+  function plate(x0,y0,x1,y1){
+    var CS=8,hash={},GAP=2.2,MAXR=7,widths=[1.4,1.4,2,2,3,3,5,5,8,12];
+    var fx=rr(0,90),fy=rr(0,90),w=x1-x0,h=y1-y0;
+    function ang(x,y){return N((x-x0)*.0052+fx,(y-y0)*.0052+fy)*TAU*1.2+N(x*.017,y*.017+40)*.45-.9}
+    function hit(x,y,r){
+      var reach=Math.ceil((r+MAXR+GAP)/CS),ci=Math.floor(x/CS),cj=Math.floor(y/CS),a,b,arr,i;
+      for(a=ci-reach;a<=ci+reach;a++)for(b=cj-reach;b<=cj+reach;b++){arr=hash[a+','+b];if(!arr)continue;for(i=0;i<arr.length;i++)if(Math.hypot(arr[i][0]-x,arr[i][1]-y)<r+arr[i][2]+GAP)return true}
+      return false;
+    }
+    function inside(x,y,r){return x-r>x0&&x+r<x1&&y-r>y0&&y+r<y1}
+    var tries=Math.round(w*h/26),n,x,y,wd,r,own,s,a,key,col;
+    for(n=0;n<tries;n++){
+      x=rr(x0,x1);y=rr(y0,y1);wd=pick(widths);r=wd/2;own=[];
+      for(s=0;s<rr(14,70);s++){if(!inside(x,y,r)||hit(x,y,r))break;own.push([x,y,r]);a=ang(x,y);x+=Math.cos(a)*3;y+=Math.sin(a)*3}
+      if(own.length<Math.max(5,wd))continue;
+      own.forEach(function(q){key=Math.floor(q[0]/CS)+','+Math.floor(q[1]/CS);(hash[key]||(hash[key]=[])).push(q)});
+      col=R()<.2?INK:pick(COLS);
+      (function(own,wd,col){
+        var P=own.map(function(q){return proj(q[0],q[1])});
+        if(!P.every(function(p){return clearOf(p[0],p[1])}))return;
+        ops.push(function(){
+          ctx.strokeStyle=col;ctx.lineCap='butt';ctx.lineJoin='round';ctx.lineWidth=Math.max(.6,wd*P[0][2]);ctx.globalAlpha=wd<3?.95:.88;
+          ctx.beginPath();P.forEach(function(p,i){i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1])});ctx.stroke();ctx.globalAlpha=1;
+        });
+      })(own,wd,col);
+    }
+  }
+
+  /* ---------- compose the page ---------- */
+  function compose(){
+    ops=[];R=mulberry(SEED);N=makeNoise(R);
+    var fx0=xL+(mobile?16:26),fx1=XMAX-8;
+    var fy0=F.y+(mobile?16:Math.max(44,H*.062)),fy1=F.y+F.h-(mobile?26:Math.max(70,H*.1));
+    var hgt=fy1-fy0,wts=mobile?[1.05,.8,1,1.05,1.2]:[1.3,1.02,.98,1.12,1.2,1.3],tot=wts.reduce(function(a,b){return a+b},0);
+    var cols=[],x=fx0,i;
+    for(i=0;i<wts.length;i++){var cw=(fx1-fx0)*wts[i]/tot;cols.push({x0:x,x1:x+cw});x+=cw}
+    function at(f){return fy0+hgt*f}
+    function rule(xa,ya,xb,yb,w){ink(seg(xa,ya,xb,yb,9),{w:w||.95,rough:.3})}
+    function cut(c,f){rule(c.x0,at(f),c.x1,at(f))}
+
+    /* the frame: one long top rule, then a rule between columns */
+    rule(fx0-(mobile?0:10),fy0,fx1,fy0,1.1);
+    for(i=1;i<cols.length;i++)rule(cols[i].x0,fy0,cols[i].x0,fy1+(i%2?rr(10,40):-rr(0,60)));
+
+    var c=cols[0],j=rr(-.03,.03),p=8;
+    /* column one: a headline hand, then the halftone block */
+    hand(3,c.x0+p,fy0+8,c.x1-p,at(.37+j)-4);
+    cut(c,.37+j);
+    halftone(quad(c.x0+p,at(.37+j)+10,c.x1-c.x0-p*2,hgt*(mobile?.5:.52)),.9,.5,rr(.5,1.1));
+
+    /* column two: mostly open paper, a short passage low down */
+    c=cols[1];j=rr(-.04,.04);
+    cut(c,.52+j);
+    hand(5,c.x0+p,at(.52+j)+8,c.x1-p,at(.52+j)+hgt*.2,INK);
+
+    /* column three: the color plate with a caption, then small type */
+    c=cols[2];j=rr(-.03,.03);
+    var py0=fy0+12,py1=at(.44+j);
+    plate(c.x0+p+4,py0,c.x1-p-4,py1-4);
+    rule(c.x0+p,py0-4,c.x1-p,py0-4,.7);rule(c.x0+p,py1,c.x1-p,py1,.7);
+    hand(0,c.x0+p,py1+5,c.x0+(c.x1-c.x0)*.62,py1+24);
+    cut(c,.53+j);
+    hand(4,c.x0+p,at(.53+j)+6,c.x1-p,at(.9));
+
+    /* column four: two narrow columns of small type, in blue, then ticks */
+    c=cols[3];j=rr(-.03,.03);
+    var m=(c.x0+c.x1)/2;
+    hand(0,c.x0+p,fy0+6,m-5,at(.6+j)-6,BLUE);hand(0,m+5,fy0+6,c.x1-p,at(.6+j)-6,BLUE);
+    cut(c,.6+j);
+    hand(1,c.x0+p,at(.6+j)+6,c.x1-p,fy1-8);
+
+    if(cols[4]){c=cols[4];j=rr(-.03,.03);
+      hand(2,c.x0+p,fy0+6,c.x1-p,at(.4+j)-6);cut(c,.4+j);
+      hand(5,c.x0+p,at(.4+j)+8,c.x1-p,at(.82));}
+    if(cols[5]){c=cols[5];hand(3,c.x0+p,fy0+8,c.x1-p,at(.7))}
+  }
+
+  /* ---------- draw: all at once, or written out over a few seconds ---------- */
+  function draw(animate){
+    cancelAnimationFrame(raf);
+    measure();compose();ctx.clearRect(0,0,W,H);
+    if(!animate){for(var k=0;k<ops.length;k++)ops[k]();return}
+    var T=5200,t0=0,i=0;
+    function tick(now){
+      if(!t0)t0=now;
+      var q=Math.min(1,(now-t0)/T),e=1-Math.pow(1-q,1.5),target=Math.floor(e*ops.length);
+      while(i<target)ops[i++]();
+      if(i<ops.length)raf=requestAnimationFrame(tick);
+    }
+    raf=requestAnimationFrame(tick);
+  }
+
+  var still=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var lastW=0,lastH=0,timer;
+  function start(){lastW=window.innerWidth;lastH=window.innerHeight;draw(!still)}
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(start);else start();
+
+  /* redraw on real resizes only; a phone's address bar sliding away is not one */
+  window.addEventListener('resize',function(){
+    clearTimeout(timer);
+    timer=setTimeout(function(){
+      var w=window.innerWidth,h=window.innerHeight;
+      if(w===lastW&&Math.abs(h-lastH)<140)return;
+      lastW=w;lastH=h;draw(false);
+    },160);
+  });
+})();
+</script>
+<noscript><style>main > *{opacity:1!important;transform:none!important;animation:none!important}</style></noscript>
 </body>
 </html>
