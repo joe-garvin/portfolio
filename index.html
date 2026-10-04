@@ -2,330 +2,422 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Joe Garvin · writer and content strategist</title>
-<meta name="description" content="Joe Garvin is a writer and content strategist. New site coming soon.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<meta name="theme-color" content="#fdfcfa">
+<title>Joe Garvin · writer, content strategist</title>
+<meta name="description" content="Joe Garvin is a writer and content strategist.">
+<meta name="theme-color" content="#ffffff">
 <meta property="og:title" content="Joe Garvin">
-<meta property="og:description" content="Writer and content strategist. New site coming soon.">
+<meta property="og:description" content="Writer and content strategist.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://joegarvin.com/">
 <link rel="canonical" href="https://joegarvin.com/">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23fdfcfa'/%3E%3Cg fill='none' stroke='%233d4257' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 11l4-3 3 4 4-4 3 3 4-2'/%3E%3Cpath d='M7 18h5m3 0h9'/%3E%3Cpath d='M7 24h11m3 0h3'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&family=Newsreader:opsz,wght@6..72,400&display=swap" rel="stylesheet">
 <style>
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
   :root{
-    --paper:#fdfcfa; --ink:#3d4257; --ink-soft:#6a6d80; --rule:#dcd7cd;
-    --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
-    --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
-    --m:clamp(24px,6.4vw,112px);
+    --paper:#ffffff; --ink:#3d4257; --soft:#6f7284; --faint:#d6d8e0;
+    --serif:"Newsreader","Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+    --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    --m:clamp(24px,6vw,96px);
   }
   html,body{height:100%}
-  body{background:var(--paper);color:var(--ink);font-family:var(--serif);overflow:hidden;
-    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  body{background:var(--paper);color:var(--ink);font-family:var(--serif);overflow:hidden;-webkit-font-smoothing:antialiased}
+  canvas{position:fixed;inset:0;width:100%;height:100%;display:block}
 
-  #sheet{position:fixed;inset:0;width:100%;height:100%;display:block}
-
-  /* film grain: a fine layer, an uneven copy of it, and a few light specks */
-  .grain{position:fixed;inset:0;pointer-events:none;z-index:1}
+  /* film grain on white, kept barely there: a fine layer, an uneven copy of it, a coarser layer, and light specks */
+  .grain{position:fixed;inset:0;pointer-events:none;z-index:2}
   .grain i{position:absolute;inset:0;mix-blend-mode:multiply}
-  .grain i:nth-child(1),.grain i:nth-child(2){background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.3' numOctaves='1' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .3  0 0 0 0 .26  0 0 0 0 .2  0 0 0 5 -2.7'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-  .grain i:nth-child(1){opacity:.2}
-  .grain i:nth-child(2){opacity:.2;background-size:310px 310px;
-    -webkit-mask-image:var(--mask);mask-image:var(--mask);-webkit-mask-size:900px 900px;mask-size:900px 900px}
-  .grain i:nth-child(3){opacity:.16;mix-blend-mode:normal;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='1' seed='9' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 .97  0 0 0 6 -3.5'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .grain i:nth-child(1),.grain i:nth-child(2){background-size:110px 110px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.3' numOctaves='1' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .3  0 0 0 0 .26  0 0 0 0 .2  0 0 0 5 -2.7'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .grain i:nth-child(1){opacity:.035}
+  .grain i:nth-child(2){opacity:.09;-webkit-mask-image:var(--mask);mask-image:var(--mask);-webkit-mask-size:900px 900px;mask-size:900px 900px}
+  .grain i:nth-child(3){opacity:.05;background-size:150px 150px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.55' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .3  0 0 0 0 .26  0 0 0 0 .2  0 0 0 6 -3.1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .grain i:nth-child(4){opacity:.1;mix-blend-mode:normal;background-size:130px 130px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='1' seed='9' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 6 -3.5'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
   :root{--mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='900'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.006' numOctaves='3' seed='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 5 -2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 
-  main{position:fixed;z-index:2;left:var(--m);top:46%;transform:translateY(-50%);max-width:21rem}
-  h1{font-weight:400;font-size:clamp(2.1rem,3.5vw,3rem);letter-spacing:-.012em;line-height:1.04}
-  .role,.note{text-transform:lowercase}
-  .role{font-family:var(--mono);font-size:.74rem;letter-spacing:.06em;color:var(--ink-soft);margin-top:.95rem}
-  .note{font-size:1.02rem;line-height:1.6;margin-top:1.5rem;padding-top:1.15rem;border-top:1px solid var(--rule);max-width:17rem;color:var(--ink-soft);font-style:italic}
+  /* the text: name in title case, everything else lowercase */
+  .copy{position:fixed;z-index:3;left:var(--m);top:46%;transform:translateY(-50%);animation:rise 1.4s ease-out both}
+  .copy h1{font-weight:400;font-size:clamp(2.2rem,3.5vw,3.1rem);letter-spacing:-.012em;line-height:1.05}
+  .copy .role{font-family:var(--mono);font-size:.74rem;letter-spacing:.07em;color:var(--soft);margin:.95rem 0 2.1rem}
+  .copy nav[hidden]{display:none}
+  .copy:has(nav[hidden]) .role{margin-bottom:0}
+  .copy ul{list-style:none;display:flex;flex-direction:column;align-items:flex-start;gap:.55rem}
+  .copy a{color:var(--ink);font-size:1.14rem;text-decoration:none;padding-bottom:2px;
+    background:linear-gradient(var(--ink),var(--ink)) 0 100%/0 1px no-repeat,linear-gradient(var(--faint),var(--faint)) 0 100%/100% 1px no-repeat;
+    transition:background-size .35s ease}
+  .copy a:hover,.copy a:focus-visible{background-size:100% 1px,100% 1px}
+  @keyframes rise{from{opacity:0;transform:translateY(calc(-50% + 6px))}to{opacity:1;transform:translateY(-50%)}}
 
-  /* the text arrives a moment before the page starts writing itself */
-  @media (prefers-reduced-motion:no-preference){
-    main > *{opacity:0;transform:translateY(6px);animation:rise 1.6s cubic-bezier(.2,.7,.2,1) forwards}
-    main > :nth-child(2){animation-delay:.3s}
-    main > :nth-child(3){animation-delay:.6s}
-    @keyframes rise{to{opacity:1;transform:none}}
-  }
+  /* the one small control */
+  .bar{position:fixed;z-index:4;bottom:16px;display:flex;align-items:center;gap:.7rem;font-family:var(--mono);font-size:.68rem;letter-spacing:.04em;color:var(--soft)}
+  #motion{left:var(--m)}
+  .bar button{font:inherit;letter-spacing:inherit;color:var(--soft);background:none;border:0;padding:6px 2px;cursor:pointer;border-bottom:1px solid transparent}
+  .bar button:hover{color:var(--ink)}
+  .bar button[aria-pressed="true"]{color:var(--ink);border-bottom-color:var(--ink)}
+  a:focus-visible,button:focus-visible{outline:2px solid #6d8db0;outline-offset:3px;border-radius:2px}
 
-  @media (max-width:700px){
-    main{left:24px;right:24px;top:max(40px,env(safe-area-inset-top));transform:none;max-width:none}
-    .note{margin-top:1.15rem;padding-top:.95rem}
+  @media (max-width:719px){
+    .copy{left:24px;right:24px;top:30px;transform:none;animation-name:rise-m}
+    .copy h1{font-size:2.1rem}
+    .copy .role{margin:.7rem 0 .7rem}
+    .copy ul{gap:0}
+    .copy a{display:inline-block;padding:.95rem 0 .65rem;min-width:5.5rem}
+    #motion{left:24px}
+    @keyframes rise-m{from{opacity:0}to{opacity:1}}
   }
-  @media (max-height:520px) and (min-width:701px){ main{top:50%} .note{margin-top:1rem;padding-top:.8rem} }
+  @media (prefers-reduced-motion:reduce){
+    .copy{animation:none}
+    .copy a{transition:none}
+    .bar{display:none}
+  }
 </style>
 </head>
 <body>
-<canvas id="sheet" aria-hidden="true"></canvas>
-<div class="grain" aria-hidden="true"><i></i><i></i><i></i></div>
+<canvas id="doc" aria-hidden="true"></canvas>
+<canvas id="dz" aria-hidden="true"></canvas>
+<canvas id="fx" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
 
-<main>
+<main class="copy" id="copy">
   <h1>Joe Garvin</h1>
-  <p class="role">Writer · content strategist</p>
-  <p class="note">Coming soon</p>
+  <p class="role">writer · content strategist</p>
+  <!-- the links are hidden until the pages they point to exist; remove the hidden attribute to bring them back -->
+  <nav aria-label="Site" hidden>
+    <ul>
+      <li><a href="#work">work</a></li>
+      <li><a href="#about">about</a></li>
+      <li><a href="#contact">contact</a></li>
+    </ul>
+  </nav>
 </main>
 
+<div class="bar" id="motion"><button id="pause" aria-pressed="false">pause motion</button></div>
 <script>
-/*
-  The drawing: a ruled page of writing in several invented hands, tilted back
-  in space, with one halftone block and one small color plate. It is generated
-  fresh in the browser from a fixed seed, so it is the same page for everyone,
-  fitted to each screen. Nothing here is an image file.
-*/
-(function () {
-  'use strict';
-  var cv = document.getElementById('sheet'), ctx = cv.getContext('2d');
-  if (!ctx) return;
-  var copy = document.querySelector('main');
+(()=>{
+const TAU=Math.PI*2,INK='#3d4257',PENCIL='#7d8296';
+const $=id=>document.getElementById(id),docC=$('doc'),dzC=$('dz'),fxC=$('fx');
+let doc,dz,fx,W=0,H=0,DPR=1,mobile=false,F={x:0,y:0,w:0,h:0};
+/* ---------- random, noise ---------- */
+function mulberry(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function makeNoise(rng){const tab=new Float32Array(256),perm=new Uint8Array(512);for(let i=0;i<256;i++){tab[i]=rng();perm[i]=i}
+  for(let i=255;i>0;i--){const j=(rng()*(i+1))|0,t=perm[i];perm[i]=perm[j];perm[j]=t}for(let i=0;i<256;i++)perm[i+256]=perm[i];const s=t=>t*t*(3-2*t);
+  return(x,y)=>{const xi=Math.floor(x),yi=Math.floor(y),xf=x-xi,yf=y-yi,X=xi&255,Y=yi&255,a=tab[perm[X+perm[Y]]],b=tab[perm[X+1+perm[Y]]],c=tab[perm[X+perm[Y+1]]],d=tab[perm[X+1+perm[Y+1]]],u=s(xf),v=s(yf);return a+(b-a)*u+(c-a)*v+(a-b-c+d)*u*v}}
+let R,Q,N;
+const rr=(a,b)=>a+R()*(b-a),clamp=(x,a,b)=>Math.max(a,Math.min(b,x)),s01=x=>{x=clamp(x,0,1);return x*x*(3-2*x)};
 
-  var TAU = Math.PI * 2, SEED = 4071;
-  var INK = '#3d4257', BLUE = '#6d8db0';
-  var COLS = ['#c4705c', '#cfa24a', '#6d8db0', '#7c9d88'];
+/* ---------- the page plane: tilted back in space on wide screens, flat below 720px ---------- */
+let xL,span,vy;const K=.55,GAIN=1.1;
+function proj(x,y){if(mobile||x<=xL)return[x,y,1];const t=(x-xL)/span,s=1/(1+K*t);return[xL+span*t*GAIN*s,vy+(y-vy)*s,s]}
+const seg=(x0,y0,x1,y1,step)=>{step=step||7;const n=Math.max(1,Math.ceil(Math.hypot(x1-x0,y1-y0)/step)),o=[];for(let i=0;i<=n;i++)o.push([x0+(x1-x0)*i/n,y0+(y1-y0)*i/n]);return o};
 
-  /* ---------- seeded random and smooth noise ---------- */
-  var R, N;
-  function mulberry(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
-  function makeNoise(rng){
-    var tab=new Float32Array(256),perm=new Uint8Array(512),i,j,t;
-    for(i=0;i<256;i++){tab[i]=rng();perm[i]=i}
-    for(i=255;i>0;i--){j=(rng()*(i+1))|0;t=perm[i];perm[i]=perm[j];perm[j]=t}
-    for(i=0;i<256;i++)perm[i+256]=perm[i];
-    function s(v){return v*v*(3-2*v)}
-    return function(x,y){
-      var xi=Math.floor(x),yi=Math.floor(y),xf=x-xi,yf=y-yi,X=xi&255,Y=yi&255;
-      var a=tab[perm[X+perm[Y]]],b=tab[perm[X+1+perm[Y]]],c=tab[perm[X+perm[Y+1]]],d=tab[perm[X+1+perm[Y+1]]];
-      var u=s(xf),v=s(yf);return a+(b-a)*u+(c-a)*v+(a-b-c+d)*u*v;
-    };
+/* ---------- marks are recorded once as ops, then drawn into a sprite per cell ---------- */
+let RO,RG;
+function nib(pts,o){RO.push({P:pts.map(p=>proj(p[0],p[1])),w:o.w,con:o.con==null?.5:o.con,ang:o.ang==null?-.6:o.ang,a:o.a||.92,flat:o.flat,sa:Q()*99,al:.86+.14*Q()})}
+function guide(x0,y0,x1,y1,a){RG.push({A:proj(x0,y0),B:proj(x1,y1),a:a||.2})}
+function rule(x0,y0,x1,y1,w){nib(seg(x0,y0,x1,y1,9),{w:w||.9,con:.15,a:.88})}
+function drawNib(c,op){
+  const P=op.P,n=P.length;if(n<2)return;const L=[],Rt=[];
+  for(let i=0;i<n;i++){
+    const a=P[Math.max(0,i-1)],b=P[Math.min(n-1,i+1)],dx=b[0]-a[0],dy=b[1]-a[1],len=Math.hypot(dx,dy)||1,s=P[i][2]||1,t=i/(n-1);
+    const press=op.flat?Math.min(1,.8+t*n/3)*Math.min(1,.8+(1-t)*n/3):n<4?1:Math.min(1,.55+t*n/5)*Math.min(1,.5+(1-t)*n/4);
+    let w=op.w*s*((1-op.con)+op.con*Math.abs(Math.sin(Math.atan2(dy,dx)-op.ang)))*press*(.86+.28*N(i*.3+op.sa,op.sa));w=Math.max(w,.5*s);
+    const nx=-dy/len*w/2,ny=dx/len*w/2;L.push([P[i][0]+nx,P[i][1]+ny]);Rt.push([P[i][0]-nx,P[i][1]-ny]);
   }
-  function rr(a,b){return a+R()*(b-a)}
-  function pick(a){return a[(R()*a.length)|0]}
+  c.fillStyle=INK;c.globalAlpha=op.a*op.al;
+  c.beginPath();c.moveTo(L[0][0],L[0][1]);for(let i=1;i<n;i++)c.lineTo(L[i][0],L[i][1]);for(let i=n-1;i>=0;i--)c.lineTo(Rt[i][0],Rt[i][1]);c.closePath();c.fill();c.globalAlpha=1;
+}
+function drawGuide(c,g){c.strokeStyle=PENCIL;c.globalAlpha=g.a;c.lineWidth=.6;c.beginPath();c.moveTo(g.A[0],g.A[1]);c.lineTo(g.B[0],g.B[1]);c.stroke();c.globalAlpha=1}
 
-  /* ---------- geometry: the text zone, the open area, the tilt ---------- */
-  var W=0,H=0,zone,F,mobile=false,ops=[],raf=0;
-  var xL=0,span=1,vy=0,K=.55,GAIN=1.1,XMAX=0;
-
-  function measure(){
-    var dpr=Math.min(window.devicePixelRatio||1,2);
-    W=window.innerWidth;H=window.innerHeight;mobile=W<=700;
-    cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);
-    var r=copy.getBoundingClientRect(),pad=mobile?14:34;
-    zone={x0:r.left-pad,y0:r.top-pad,x1:r.right+pad,y1:r.bottom+pad};
-    F=mobile?{x:0,y:zone.y1,w:W,h:H-zone.y1}:{x:zone.x1,y:0,w:W-zone.x1,h:H};
-    xL=F.x;span=F.w;vy=F.y+F.h*(mobile?.36:.43);XMAX=xL+span*1.9;
-  }
-  /* page space to screen space. Returns [x, y, scale]. */
-  function proj(x,y){
-    if(x<=xL)return[x,y,1];
-    var t=(x-xL)/span,s=1/(1+K*t);
-    return[xL+span*t*GAIN*s,vy+(y-vy)*s,s];
-  }
-  function clearOf(x,y){
-    var dx=Math.max(zone.x0-x,0,x-zone.x1),dy=Math.max(zone.y0-y,0,y-zone.y1);
-    return Math.hypot(dx,dy)>=26;
-  }
-  function visible(x,y){return x>-30&&y>-30&&x<W+30&&y<H+30}
-
-  /* ---------- a pen stroke, slightly unsteady, drawn twice ---------- */
-  function mark(pts,o){
-    var n=pts.length;if(n<2)return;
-    var sc=o.sc||1,w=(o.w||1.2)*sc,rough=(o.rough==null?1:o.rough)*sc,col=o.color||INK,a=o.a||1;
-    var sa=R()*900,sb=R()*900,P=[new Float32Array(n*2),new Float32Array(n*2)],Wd=[new Float32Array(n),new Float32Array(n)],pass,i,x,y;
-    for(pass=0;pass<2;pass++)for(i=0;i<n;i++){
-      x=pts[i][0];y=pts[i][1];
-      P[pass][i*2]=x+(N(x*.021+sa+pass*3,y*.021)-.5)*2.4*rough+(pass?.7*sc:0);
-      P[pass][i*2+1]=y+(N(x*.021,y*.021+sb+pass*3)-.5)*2.4*rough+(pass?.5*sc:0);
-      Wd[pass][i]=Math.max(.35,w*(pass?.6:1)*(.6+.85*N(i*.09+sa,pass*5.1+sb)));
-    }
-    ops.push(function(){
-      ctx.strokeStyle=col;ctx.lineCap='round';ctx.lineJoin='round';
-      for(var p=0;p<2;p++){
-        ctx.globalAlpha=p?.26*a:a;
-        for(var k=1;k<n;k++){ctx.lineWidth=Wd[p][k];ctx.beginPath();ctx.moveTo(P[p][k*2-2],P[p][k*2-1]);ctx.lineTo(P[p][k*2],P[p][k*2+1]);ctx.stroke()}
-      }
-      ctx.globalAlpha=1;
-    });
-  }
-  /* page-space path: project it, drop whatever lands on the text or off screen */
-  function ink(pts,o){
-    var run=[],sc=1,i,p;o=o||{};
-    for(i=0;i<pts.length;i++){
-      p=proj(pts[i][0],pts[i][1]);
-      if(clearOf(p[0],p[1])&&visible(p[0],p[1])){if(!run.length)sc=p[2];run.push(p)}
-      else{if(run.length>1)mark(run,{w:o.w,rough:o.rough,color:o.color,a:o.a,sc:sc});run=[]}
-    }
-    if(run.length>1)mark(run,{w:o.w,rough:o.rough,color:o.color,a:o.a,sc:sc});
-  }
-  function seg(x0,y0,x1,y1,step){
-    step=step||7;var n=Math.max(1,Math.ceil(Math.hypot(x1-x0,y1-y0)/step)),pts=[],i;
-    for(i=0;i<=n;i++)pts.push([x0+(x1-x0)*i/n,y0+(y1-y0)*i/n]);
-    return pts;
-  }
-  function quad(x,y,w,h){return[[x,y],[x+w,y],[x+w,y+h],[x,y+h]].map(function(p){return proj(p[0],p[1])})}
-
-  /* ---------- halftone block: an ordered dither, laid down in bands ---------- */
-  var BAYER=[0,8,2,10,12,4,14,6,3,11,1,9,15,7,13,5];
-  function halftone(q,t0,t1,ang){
-    if(!q.every(function(p){return clearOf(p[0],p[1])}))return;
-    var x0=1e9,y0=1e9,x1=-1e9,y1=-1e9,pm=1e9,pM=-1e9,ca=Math.cos(ang),sa=Math.sin(ang),s=3;
-    q.forEach(function(p){x0=Math.min(x0,p[0]);x1=Math.max(x1,p[0]);y0=Math.min(y0,p[1]);y1=Math.max(y1,p[1]);var pr=p[0]*ca+p[1]*sa;pm=Math.min(pm,pr);pM=Math.max(pM,pr)});
-    x0=Math.max(x0,-6);x1=Math.min(x1,W+6);y0=Math.max(y0,-6);y1=Math.min(y1,H+6);
-    var ys=Math.floor(y0/s)*s,band=s*5;
-    for(var b=ys;b<y1;b+=band)(function(b){
-      ops.push(function(){
-        ctx.save();ctx.beginPath();q.forEach(function(p,i){i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1])});ctx.closePath();ctx.clip();
-        ctx.fillStyle=INK;
-        for(var y=b;y<Math.min(b+band,y1);y+=s)for(var x=Math.floor(x0/s)*s;x<x1;x+=s){
-          var g=(x*ca+y*sa-pm)/(pM-pm||1),tone=t0+(t1-t0)*g;
-          if((BAYER[((x/s)&3)+4*((y/s)&3)]+.5)/16<tone)ctx.fillRect(x,y,1.9,1.9);
-        }
-        ctx.restore();
-      });
-    })(b);
-  }
-
-  /* ---------- the hands ---------- */
-  function hand(k,x0,y0,x1,y1,col){
-    var x,y,end,l,h,n,pts,px,py,i,len,amps,ph,c,xx;
-    if(k===0){ /* small broken dashes */
-      for(y=y0+7;y<y1-3;y+=8){end=x0+(x1-x0)*(R()<.14?rr(.3,.8):1);
-        for(x=x0;x<end-4;){l=rr(2,6);if(R()<.86)ink([[x,y+rr(-1.6,1.6)],[x+l,y+rr(-1.6,1.6)]],{w:1.5,rough:.25,color:col});x+=l+rr(2,4.5)}}
-    }else if(k===1){ /* upright ticks */
-      for(y=y0+13;y<y1-3;y+=16){end=x0+(x1-x0)*(R()<.2?rr(.4,.85):1);
-        for(x=x0+2;x<end-2;x+=rr(4,6.6)){h=rr(7,11);ink(seg(x,y,x+rr(-1.2,1.2),y-h,4),{w:2.3,rough:.3,color:col})}}
-    }else if(k===2){ /* heavy bars */
-      for(y=y0+8;y<y1-3;y+=10){for(x=x0;x<x1-8;){l=Math.min(rr(8,44),x1-x);if(R()<.9)ink(seg(x,y,x+l,y,6),{w:4.6,rough:.2,color:col});x+=l+rr(3,6)}}
-    }else if(k===3){ /* large angular characters */
-      for(y=y0+26;y<y1-4;y+=37){for(x=x0+2;x<x1-24;x+=rr(29,38)){
-        n=3+((R()*3)|0);pts=[];px=x;py=y-rr(0,18);
-        for(i=0;i<n;i++){var nx=x+(i+1)*22/n+rr(-3,3),ny=y-rr(0,20);pts=pts.concat(seg(px,py,nx,ny,5));px=nx;py=ny}
-        ink(pts,{w:3,rough:.5,color:col})}}
-    }else if(k===4){ /* a quick zigzag script */
-      for(y=y0+13;y<y1-3;y+=14){end=x0+(x1-x0)*(R()<.2?rr(.3,.8):1);
-        for(x=x0;x<end-10;){len=Math.min(rr(14,60),end-x);pts=[];amps=[];
-          for(ph=0;;ph+=Math.PI){c=Math.floor(ph/TAU);if(amps[c]===undefined)amps[c]=R()<.17?2.1:rr(.6,1.2);xx=x+ph*1.9;if(xx>x+len)break;
-            var yy=y-7*amps[c]*(.5-.5*Math.cos(ph));if(pts.length)pts=pts.concat(seg(pts[pts.length-1][0],pts[pts.length-1][1],xx,yy,4));else pts.push([xx,yy])}
-          ink(pts,{w:1,rough:.5,color:col});x+=len+rr(6,11)}}
-    }else{ /* a looping cursive */
-      for(y=y0+16;y<y1-4;y+=19){end=x0+(x1-x0)*(R()<.22?rr(.35,.8):1);
-        for(x=x0;x<end-12;){len=Math.min(rr(18,70),end-x);pts=[];amps=[];
-          for(ph=0;;ph+=.34){c=Math.floor(ph/TAU);if(amps[c]===undefined)amps[c]=R()<.18?2.2:R()<.1?-1:rr(.7,1.2);
-            xx=x+ph*2.3-3*Math.sin(ph);if(xx>x+len)break;pts.push([xx,y-8.5*amps[c]*(.5-.5*Math.cos(ph))])}
-          ink(pts,{w:1.05,rough:.45,color:col});x+=len+rr(8,13)}}
+/* ---------- the two hands: abstract marks, never letters ---------- */
+function zigzag(x0,y0,x1,y1,sc){
+  for(let y=y0+14*sc;y<y1-2;y+=15*sc){
+    guide(x0,y+1.5,x1,y+1.5,.2);
+    const end=x0+(x1-x0)*(R()<.2?rr(.3,.8):1);
+    for(let x=x0;x<end-10*sc;){
+      const len=Math.min(rr(14,62)*sc,end-x),amps=[];let pts=[];
+      for(let ph=0;;ph+=Math.PI){const c=Math.floor(ph/TAU);if(amps[c]===undefined)amps[c]=R()<.17?2.1:rr(.6,1.2);const xx=x+ph*1.9*sc;if(xx>x+len)break;const yy=y-7*sc*amps[c]*(.5-.5*Math.cos(ph));
+        if(pts.length)pts=pts.concat(seg(pts[pts.length-1][0],pts[pts.length-1][1],xx,yy,4).slice(1));else pts.push([xx,yy])}
+      if(pts.length>1)nib(pts,{w:1.6*sc,con:.55,ang:-.7,a:.96});
+      x+=len+rr(6,11)*sc;
     }
   }
-
-  /* ---------- the color plate: bands following one current, never touching ---------- */
-  function plate(x0,y0,x1,y1){
-    var CS=8,hash={},GAP=2.2,MAXR=7,widths=[1.4,1.4,2,2,3,3,5,5,8,12];
-    var fx=rr(0,90),fy=rr(0,90),w=x1-x0,h=y1-y0;
-    function ang(x,y){return N((x-x0)*.0052+fx,(y-y0)*.0052+fy)*TAU*1.2+N(x*.017,y*.017+40)*.45-.9}
-    function hit(x,y,r){
-      var reach=Math.ceil((r+MAXR+GAP)/CS),ci=Math.floor(x/CS),cj=Math.floor(y/CS),a,b,arr,i;
-      for(a=ci-reach;a<=ci+reach;a++)for(b=cj-reach;b<=cj+reach;b++){arr=hash[a+','+b];if(!arr)continue;for(i=0;i<arr.length;i++)if(Math.hypot(arr[i][0]-x,arr[i][1]-y)<r+arr[i][2]+GAP)return true}
-      return false;
-    }
-    function inside(x,y,r){return x-r>x0&&x+r<x1&&y-r>y0&&y+r<y1}
-    var tries=Math.round(w*h/26),n,x,y,wd,r,own,s,a,key,col;
-    for(n=0;n<tries;n++){
-      x=rr(x0,x1);y=rr(y0,y1);wd=pick(widths);r=wd/2;own=[];
-      for(s=0;s<rr(14,70);s++){if(!inside(x,y,r)||hit(x,y,r))break;own.push([x,y,r]);a=ang(x,y);x+=Math.cos(a)*3;y+=Math.sin(a)*3}
-      if(own.length<Math.max(5,wd))continue;
-      own.forEach(function(q){key=Math.floor(q[0]/CS)+','+Math.floor(q[1]/CS);(hash[key]||(hash[key]=[])).push(q)});
-      col=R()<.2?INK:pick(COLS);
-      (function(own,wd,col){
-        var P=own.map(function(q){return proj(q[0],q[1])});
-        if(!P.every(function(p){return clearOf(p[0],p[1])}))return;
-        ops.push(function(){
-          ctx.strokeStyle=col;ctx.lineCap='butt';ctx.lineJoin='round';ctx.lineWidth=Math.max(.6,wd*P[0][2]);ctx.globalAlpha=wd<3?.95:.88;
-          ctx.beginPath();P.forEach(function(p,i){i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1])});ctx.stroke();ctx.globalAlpha=1;
-        });
-      })(own,wd,col);
+}
+function bars(x0,y0,x1,y1,sc){
+  for(let y=y0+8*sc;y<y1-2;y+=8.6*sc){
+    const end=R()<.13?x0+(x1-x0)*rr(.35,.82):x1,drift=rr(-.7,.7)*sc;
+    for(let x=x0;x<end-8*sc;){
+      const l=Math.min(rr(8,44)*sc,end-x);
+      if(R()<.94)nib(seg(x,y+drift,x+l,y+drift+rr(-.5,.5)*sc,6),{w:5.4*sc,con:.12,ang:-.4,flat:1,a:.97});
+      x+=l+rr(2.5,5)*sc;
     }
   }
+}
 
-  /* ---------- compose the page ---------- */
-  function compose(){
-    ops=[];R=mulberry(SEED);N=makeNoise(R);
-    var fx0=xL+(mobile?16:26),fx1=XMAX-8;
-    var fy0=F.y+(mobile?16:Math.max(44,H*.062)),fy1=F.y+F.h-(mobile?26:Math.max(70,H*.1));
-    var hgt=fy1-fy0,wts=mobile?[1.05,.8,1,1.05,1.2]:[1.3,1.02,.98,1.12,1.2,1.3],tot=wts.reduce(function(a,b){return a+b},0);
-    var cols=[],x=fx0,i;
-    for(i=0;i<wts.length;i++){var cw=(fx1-fx0)*wts[i]/tot;cols.push({x0:x,x1:x+cw});x+=cw}
-    function at(f){return fy0+hgt*f}
-    function rule(xa,ya,xb,yb,w){ink(seg(xa,ya,xb,yb,9),{w:w||.95,rough:.3})}
-    function cut(c,f){rule(c.x0,at(f),c.x1,at(f))}
+/* ---------- settings ---------- */
+/* ---------- settings: Joe's picks ----------
+   A row arrives as a dither fade. The bars column and the zigzag are on the page at load. Blocks fill, move, and have lines struck and rewritten.
+   A block takes 6 s and events are 4 s apart on the study's clock, and that clock runs at 4x, so on screen a block fills in 1.5 s
+   with 1 s between events. The dithered square does not use this clock and keeps its own slower pace. */
+const S={dia:'circulation',geo:'persp',end:'fade',mode:'fade',fill:true,move:true,revise:true,fillDur:6,gap:4,speed:4};
 
-    /* the frame: one long top rule, then a rule between columns */
-    rule(fx0-(mobile?0:10),fy0,fx1,fy0,1.1);
-    for(i=1;i<cols.length;i++)rule(cols[i].x0,fy0,cols[i].x0,fy1+(i%2?rr(10,40):-rr(0,60)));
+/* ---------- pen helpers that work on already-projected points, so a figure can be drawn on the tilted page or flat ---------- */
+let FLAT=false,TX=[];
+const PR=(x,y)=>FLAT?[x,y,1]:proj(x,y);
+function raw(P,o){if(P.length>1)RO.push({P,w:o.w,con:o.con==null?.3:o.con,ang:o.ang==null?-.6:o.ang,a:o.a||.92,flat:o.flat,sa:Q()*99,al:.86+.14*Q()})}
+function drawText(c,o){c.save();c.transform(o.m[0],o.m[1],o.m[2],o.m[3],o.m[4],o.m[5]);c.fillStyle=INK;c.font=o.font;c.textAlign='center';c.textBaseline='middle';c.fillText(o.str,0,0);c.restore()}
 
-    var c=cols[0],j=rr(-.03,.03),p=8;
-    /* column one: a headline hand, then the halftone block */
-    hand(3,c.x0+p,fy0+8,c.x1-p,at(.37+j)-4);
-    cut(c,.37+j);
-    halftone(quad(c.x0+p,at(.37+j)+10,c.x1-c.x0-p*2,hgt*(mobile?.5:.52)),.9,.5,rr(.5,1.1));
+/* ---------- the diagram: a figure in the spirit of a pedagogical sketchbook, drawn in a 1.3 by 1 box ---------- */
+let B={x:0,y:0,s:300},KW=1;
+const M=p=>[B.x+p[0]*B.s,B.y+p[1]*B.s];
+function path(pts,w,o){const out=[];pts=pts.map(M);for(let i=0;i<pts.length;i++){if(!i){out.push(pts[0]);continue}const a=pts[i-1],b=pts[i],n=Math.max(1,Math.ceil(Math.hypot(b[0]-a[0],b[1]-a[1])/5));for(let k=1;k<=n;k++)out.push([a[0]+(b[0]-a[0])*k/n,a[1]+(b[1]-a[1])*k/n])}
+  raw(out.map(p=>PR(p[0],p[1])),Object.assign({w:(w||1.1)*KW},o||{}))}
+function dots(pts,gap){pts=pts.map(M);let acc=0;const g=(gap||5)*KW;for(let i=1;i<pts.length;i++){const a=pts[i-1],b=pts[i],L=Math.hypot(b[0]-a[0],b[1]-a[1])||1;let d=g-acc;
+    for(;d<=L;d+=g){const x=a[0]+(b[0]-a[0])*d/L,y=a[1]+(b[1]-a[1])*d/L,ux=(b[0]-a[0])/L,uy=(b[1]-a[1])/L;raw([PR(x-ux*.9*KW,y-uy*.9*KW),PR(x+ux*.9*KW,y+uy*.9*KW)],{w:1.3*KW,con:.05,flat:1})}acc=(acc+L)%g}}
+const line=(x0,y0,x1,y1,w,o)=>path([[x0,y0],[x1,y1]],w,o),dline=(x0,y0,x1,y1,g)=>dots([[x0,y0],[x1,y1]],g);
+function arc(cx,cy,r,a0,a1){const n=Math.max(8,Math.ceil(Math.abs(a1-a0)*r*B.s/5)),p=[];for(let i=0;i<=n;i++){const a=a0+(a1-a0)*i/n;p.push([cx+Math.cos(a)*r,cy+Math.sin(a)*r])}return p}
+function head(x,y,ang,sz,w){sz=sz||.035;[2.6,-2.6].forEach(d=>path([[x,y],[x+Math.cos(ang+d)*sz,y+Math.sin(ang+d)*sz]],w||1.1,{con:.1}))}
+function hatch(x0,y0,x1,y1,sp){sp=sp||.014;for(let d=sp;d<(x1-x0)+(y1-y0);d+=sp){const ax=Math.min(x1,x0+d),ay=y0+Math.max(0,d-(x1-x0)),bx=x0+Math.max(0,d-(y1-y0)),by=Math.min(y1,y0+d);path([[ax,ay],[bx,by]],.8,{con:.1,a:.85})}}
+function num(str,x,y,size){const p=M([x,y]),o=PR(p[0],p[1]),ax=PR(p[0]+10,p[1]),ay=PR(p[0],p[1]+10);
+  TX.push({str,m:[(ax[0]-o[0])/10,(ax[1]-o[1])/10,(ay[0]-o[0])/10,(ay[1]-o[1])/10,o[0],o[1]],font:'italic '+((size||.055)*B.s)+'px "Iowan Old Style",Palatino,Georgia,serif'})}
+const DIA={
+  /* circulation: one loop drawn firmly and one lightly, crossing at a small centre */
+  circulation(){const f=t=>{const d=1+Math.sin(t)*Math.sin(t);return[.65+.52*Math.cos(t)/d,.5+.56*Math.sin(t)*Math.cos(t)/d]},A=[],Bq=[];
+    for(let i=0;i<=120;i++){const t=-Math.PI/2+Math.PI*i/120;A.push(f(t));Bq.push(f(t+Math.PI))}
+    path(A,1.8,{con:.5});dots(Bq,5.5);[[-.9],[.5],[Math.PI-.9],[Math.PI+.5]].forEach(q=>{const t=q[0],p=f(t),p1=f(t+.02);head(p[0],p[1],Math.atan2(p1[1]-p[1],p1[0]-p[0]),.036,1.2)});
+    path(arc(.65,.5,.04,0,TAU),1.3,{con:.15});path(arc(.65,.5,.02,0,TAU),1.5,{con:.1});
+    for(let i=0;i<9;i++){const t=-.9+i*.225,p=f(t),c=[.95,.5],dx=p[0]-c[0],dy=p[1]-c[1],L=Math.hypot(dx,dy)||1;line(p[0]+dx/L*.03,p[1]+dy/L*.03,p[0]+dx/L*.065,p[1]+dy/L*.065,.8)}
+    num('1',.94,.5);num('2',.36,.5)},
+};
+function drawDiagram(x0,y0,x1,y1){const w=x1-x0,h=y1-y0,s=Math.min(w/1.3,h);B={x:x0+(w-1.3*s)/2,y:y0+(h-s)/2,s};KW=clamp(s/300,.7,1.7);R=mulberry(606);Q=mulberry(613);DIA[S.dia]()}
 
-    /* column two: mostly open paper, a short passage low down */
-    c=cols[1];j=rr(-.04,.04);
-    cut(c,.52+j);
-    hand(5,c.x0+p,at(.52+j)+8,c.x1-p,at(.52+j)+hgt*.2,INK);
+/* ---------- structure lines that run on to the edge of the page, and how they give out ---------- */
+function trail(pos,len){
+  const st=S.end,P=e=>pos(clamp(e,0,1));
+  if(st==='fade'){const n=Math.max(4,Math.ceil(len/14));for(let i=0;i<n;i++)raw([P(i/n),P((i+.5)/n),P((i+1)/n)],{w:.9,con:.1,flat:1,a:.9*Math.pow(1-i/n,1.3)+.02})}
+  else if(st==='dotted'){for(let d=0;d<len;){const e=d/len,dash=26*Math.pow(1-e,1.6)+1.6,gap=1+9*Math.pow(e,1.1);raw([P(d/len),P((d+dash*.5)/len),P((d+dash)/len)],{w:e>.7?1.25:.95,con:.08,flat:1,a:.92-.45*e});d+=dash+gap}}
+  else{const solid=.3;{const n=Math.max(3,Math.ceil(len*solid/14));for(let i=0;i<n;i++)raw([P(i/n*solid),P((i+.5)/n*solid),P((i+1)/n*solid)],{w:.9,con:.1,flat:1,a:.9*(1-.6*i/n)})}
+    for(let d=len*.08;d<len;){const e=d/len,a=P(e),b=P(Math.min(1,e+.004)),ux=b[0]-a[0],uy=b[1]-a[1],L=Math.hypot(ux,uy)||1,nx=(ux-uy)/L*.707,ny=(uy+ux)/L*.707,h=4.5*(a[2]||1);
+      raw([[a[0]-nx*h,a[1]-ny*h,a[2]],[a[0]+nx*h,a[1]+ny*h,a[2]]],{w:.85,con:.1,flat:1,a:.9-.6*e});d+=4+13*e}}
+}
+const projE=(x,y)=>{const t=(x-xL)/span,s=1/(1+K*t);return[xL+span*t*GAIN*s,vy+(y-vy)*s,s]};     /* the page's perspective, continued in front of the near edge */
+function leftTrail(x0,y,stopX){
+  const p0=proj(x0,y);if(p0[0]-stopX<12)return;
+  if(S.geo==='fold')trail(e=>[p0[0]+(stopX-p0[0])*e,p0[1]+(y-p0[1])*Math.min(1,e*8),1],p0[0]-stopX);
+  else{const d=stopX-xL,tE=d/(span*GAIN-K*d),xE=xL+tE*span;trail(e=>projE(x0+(xE-x0)*e,y),p0[0]-stopX)}
+}
+function downTrail(x,y0){const s=proj(x,0)[2],yE=vy+(H+6-vy)/s;if(yE-y0<10)return;const a=proj(x,y0),b=proj(x,yE);trail(e=>proj(x,y0+(yE-y0)*e),b[1]-a[1])}
 
-    /* column three: the color plate with a caption, then small type */
-    c=cols[2];j=rr(-.03,.03);
-    var py0=fy0+12,py1=at(.44+j);
-    plate(c.x0+p+4,py0,c.x1-p-4,py1-4);
-    rule(c.x0+p,py0-4,c.x1-p,py0-4,.7);rule(c.x0+p,py1,c.x1-p,py1,.7);
-    hand(0,c.x0+p,py1+5,c.x0+(c.x1-c.x0)*.62,py1+24);
-    cut(c,.53+j);
-    hand(4,c.x0+p,at(.53+j)+6,c.x1-p,at(.9));
-
-    /* column four: two narrow columns of small type, in blue, then ticks */
-    c=cols[3];j=rr(-.03,.03);
-    var m=(c.x0+c.x1)/2;
-    hand(0,c.x0+p,fy0+6,m-5,at(.6+j)-6,BLUE);hand(0,m+5,fy0+6,c.x1-p,at(.6+j)-6,BLUE);
-    cut(c,.6+j);
-    hand(1,c.x0+p,at(.6+j)+6,c.x1-p,fy1-8);
-
-    if(cols[4]){c=cols[4];j=rr(-.03,.03);
-      hand(2,c.x0+p,fy0+6,c.x1-p,at(.4+j)-6);cut(c,.4+j);
-      hand(5,c.x0+p,at(.4+j)+8,c.x1-p,at(.82));}
-    if(cols[5]){c=cols[5];hand(3,c.x0+p,fy0+8,c.x1-p,at(.7))}
+/* ---------- layout: outline, lines running on to the edges, the cells, and the square ---------- */
+const BAY=[0,8,2,10,12,4,14,6,3,11,1,9,15,7,13,5];
+function inPoly(x,y,q){let c=false;for(let i=0,j=q.length-1;i<q.length;j=i++){if((q[i][1]>y)!==(q[j][1]>y)&&x<(q[j][0]-q[i][0])*(y-q[i][1])/(q[j][1]-q[i][1])+q[i][0])c=!c}return c}
+let DZ=null,textRight=0,CELLS={},linesC=null,SC=1;
+function buildStatic(){
+  const fy0=F.y+(mobile?16:42),fy1=F.y+F.h-(mobile?52:40),hgt=fy1-fy0,Y=f=>fy0+hgt*f;SC=mobile?.82:1;
+  const b=mobile?[.05,.4,.76,.95]:[.02,.467,.903,1.406,1.9],X=b.map(t=>xL+t*span),cut=mobile?.3:.42,n=X.length-1;
+  RO=[];RG=[];R=mulberry(101);Q=mulberry(108);
+  rule(X[0],fy0,X[n],fy0,1.15);rule(X[0],fy0+3.6,X[n],fy0+3.6,.5);
+  rule(X[1],fy0+3.6,X[1],fy1,.9);rule(X[0],Y(cut),X[1],Y(cut),.9);rule(X[2],fy0+3.6,X[2],Y(.94),.9);rule(X[1],Y(cut),X[2],Y(cut),.9);
+  if(!mobile){rule(X[3],fy0+3.6,X[3],Y(.87),.9);rule(X[3],Y(.72),X[4],Y(.72),.9)}
+  /* lines running on to the edges: top and middle leftward in perspective, all column rules downward, fading */
+  R=mulberry(707);Q=mulberry(714);
+  if(!mobile){leftTrail(X[0],fy0,-4);leftTrail(X[0],fy0+3.6,-4);leftTrail(X[0],Y(cut),textRight+26)}
+  downTrail(X[1],fy1);downTrail(X[2],Y(.94));if(!mobile)downTrail(X[3],Y(.87));
+  linesC=document.createElement('canvas');linesC.width=Math.round(W*DPR);linesC.height=Math.round(H*DPR);const g=linesC.getContext('2d');g.setTransform(DPR,0,0,DPR,0,0);RO.forEach(o=>drawNib(g,o));
+  /* the cells a block can occupy. A and C are the upper cells of the first two columns; E is the upper cell of the fourth */
+  CELLS={A:[X[0]+14,fy0+16,X[1]-14,Y(cut)-12],B:[X[0]+8,Y(cut)+6,X[1]-8,fy1-4],C:[X[1]+14,fy0+16,X[2]-14,Y(cut)-12],D:[X[2]+8,fy0+9,X[3]-8,Y(.9)]};
+  if(!mobile){const h=Y(.9)-Y(.72)-6;CELLS.F=[X[3]+8,Y(.72)+6,X[4]-8,Y(.9)];CELLS.E=[X[3]+8,fy0+9,X[4]-8,fy0+9+h]}
+  /* the square fills its cell */
+  const a=Y(cut)+8,r=[X[1]+8,a,X[2]-8,Y(.94)-8];DZ={quad:[[r[0],r[1]],[r[2],r[1]],[r[2],r[3]],[r[0],r[3]]].map(p=>proj(p[0],p[1]))};
+}
+/* the dithered square: fixed outline, tone drifting inside it (same movement and speed as the main direction).
+   Three things pass through it in turn, as silhouettes: a ginkgo leaf, a head in profile, a tree.
+   None sits still in the centre. Each drifts in from one side and out the other over 7 s (3 s in, 1 s whole, 3 s out),
+   surfacing through the crests of the drift so that it ebbs and flows with the same wave that moves the square.
+   Then the square is left to the drift alone for 3 s. The leaf sways as it goes; the head and the tree stay level. */
+const DSP=3,SQ={hold:1,tr:6,rest:3,drift:.29,ground:.39,lead:1.5},ORDER=[1,2,0],MP=192;
+const SHAPES=[
+  function tree(g){const r=mulberry(19);g.lineCap='round';g.strokeStyle='rgba(255,255,255,.92)';
+    (function br(x,y,a,l,w,d){const x2=x+Math.cos(a)*l,y2=y+Math.sin(a)*l;g.lineWidth=w;g.beginPath();g.moveTo(x,y);g.lineTo(x2,y2);g.stroke();
+      if(d<7){br(x2,y2,a-.28-r()*.35,l*(.68+r()*.12),w*.68,d+1);br(x2,y2,a+.26+r()*.35,l*(.68+r()*.12),w*.68,d+1);if(r()<.3)br(x2,y2,a+(r()-.5)*.3,l*.6,w*.6,d+1)}})(100,198,-Math.PI/2,52,13,0)},
+  function ginkgo(g){const by=146,pt=(a,r)=>[100+r*Math.sin(a*Math.PI/180),by-r*Math.cos(a*Math.PI/180)];
+    g.translate(100,100);g.rotate(-.2);g.translate(-100,-100);g.fillStyle=g.strokeStyle='rgba(255,255,255,.92)';
+    g.beginPath();g.moveTo(100,by);for(let a=-50;a<=50;a+=2){const q=pt(a,112*(1+.02*Math.sin(a*.5)+.012*Math.sin(a*1.7))*(1-.5*Math.exp(-(a/3.2)*(a/3.2))));g.lineTo(q[0],q[1])}g.closePath();g.fill();
+    g.lineWidth=8;g.lineCap='round';g.beginPath();g.moveTo(100,by-4);g.quadraticCurveTo(99,by+30,90,by+54);g.stroke()},
+  function head(g){g.fillStyle='rgba(255,255,255,.92)';
+    g.fill(new Path2D('M54 204 C60 178 48 160 42 138 C28 94 42 40 92 26 C130 16 160 42 162 80 C162 88 160 93 164 99 L184 126 C187 132 181 135 172 135 L172 141 C179 144 178 150 172 152 C177 156 176 162 170 164 C168 171 175 177 168 186 C161 194 142 193 128 189 C124 194 126 200 128 204 Z'));
+    g.strokeStyle='rgba(0,0,0,.6)';g.lineWidth=3;g.lineCap='round';g.beginPath();g.arc(96,112,14,-1.9,1.6);g.stroke()},
+];
+const MAPS=SHAPES.map(fn=>{const c=document.createElement('canvas');c.width=c.height=MP;const g=c.getContext('2d',{willReadFrequently:true}),k=fn.name==='head'?.97:.86;
+  g.scale(MP/200,MP/200);g.translate(100,100);g.scale(k,k);g.translate(-100,-100);fn(g);
+  const d=g.getImageData(0,0,MP,MP).data,m=new Float32Array(MP*MP);for(let i=0;i<MP*MP;i++)m[i]=d[i*4]/255*d[i*4+3]/255;return m});
+function drawDz(ts,still){
+  const c=DZ;if(!c)return;const bb=c.bb,mix=still?1:ts>0?Math.min(1,ts/2):0,t=still?0:Math.floor(ts*24)/24*DSP*.25,P=new Path2D(),wamp=SQ.drift*.1;
+  /* phones (under 720px) show only the ginkgo; wider screens cycle ginkgo, head, tree.
+     which object is passing through, how present it is, and where it is. Each enters from a direction of its own,
+     passes a resting point a little off centre, and leaves; then a rest with nothing but the drift. */
+  let oi=-1,p=0,cx=.5,cy=.5,ca=1,sa=0,sc=1;
+  if(still){oi=1;p=1}
+  else if(ts>SQ.lead){const life=SQ.hold+SQ.tr,slot=life+SQ.rest,half=SQ.tr/2,tt=ts-SQ.lead,k=Math.floor(tt/slot),lt=tt-k*slot;
+    if(lt<life){
+      p=lt<half?s01(lt/half):lt<half+SQ.hold?1:1-s01((lt-half-SQ.hold)/half);oi=mobile?1:ORDER[k%3];
+      const lp=lt/life,r=mulberry(k*97+13),a0=r()*TAU,ox=(r()-.5)*.2,oy=(r()-.5)*.16,d=(.5-lp)*.62,rot=oi===1?.13*Math.sin(lt*.9+k*2)+(r()-.5)*.2:0;
+      cx=.5+ox+Math.cos(a0)*d+.025*Math.sin(t*2.1+k);cy=.5+oy+Math.sin(a0)*d*.8+.02*Math.cos(t*1.7+k);ca=Math.cos(rot);sa=Math.sin(rot);sc=1+.05*Math.sin(lt*1.3+k)}}
+  const map=oi>=0&&p>0?MAPS[oi]:null;
+  dz.clearRect(bb[0]-4,bb[1]-4,bb[2]-bb[0]+8,bb[3]-bb[1]+8);
+  /* the cell is rarely square, so the shapes and the drift are scaled by its shorter side and keep their own proportions */
+  const bw=bb[2]-bb[0],bh=bb[3]-bb[1],mn=Math.min(bw,bh),su=bw/mn,sv=bh/mn,AX=250*su,AY=250*sv;
+  for(let i=0;i<c.gx.length;i++){
+    let tone=c.gt[i];
+    if(mix){const u=c.gu[i],v=c.gv[i],X=u*AX,Y=v*AY,f=(N(X*.011+t*.9,Y*.011-t*.5)-.5)*1.5+(N(X*.03-t*1.3,Y*.03+40)-.5)*.5;
+      let img=0;
+      if(map){
+        /* undulate the sampling point, then carry it into the object's own moving, swaying frame */
+        const wu=u+(still?0:.03*Math.sin(v*7+t*2.2))+(N(X*.02+t*.8,Y*.02+9)-.5)*wamp-cx,wv=v+(still?0:.026*Math.sin(u*6-t*1.8))+(N(X*.02+5,Y*.02-t*.8)-.5)*wamp-cy;
+        const pu=wu*su,pv=wv*sv,uu=(pu*ca+pv*sa)/sc+.5,vv=(-pu*sa+pv*ca)/sc+.5;
+        if(uu>=0&&uu<1&&vv>=0&&vv<1)img=map[((vv*MP)|0)*MP+((uu*MP)|0)]*(still?1:s01(p*1.5-.25+f*.6))}
+      let live=clamp(SQ.ground+img*(.94-SQ.ground)+f*.7*SQ.drift*1.2,.03,.97);if(c.ge[i])live=Math.max(live,.5);
+      tone=live*mix+tone*(1-mix)}
+    if(c.gb[i]<tone)P.rect(c.gx[i],c.gy[i],1.9,1.9);
   }
+  dz.fillStyle=INK;dz.fill(P);
+}
 
-  /* ---------- draw: all at once, or written out slowly ---------- */
-  function draw(animate){
-    cancelAnimationFrame(raf);
-    measure();compose();ctx.clearRect(0,0,W,H);
-    if(!animate){for(var k=0;k<ops.length;k++)ops[k]();return}
-    var T=12000,t0=0,i=0;
-    function tick(now){
-      if(!t0)t0=now;
-      var q=Math.min(1,(now-t0)/T),e=1-Math.pow(1-q,1.5),target=Math.floor(e*ops.length);
-      while(i<target)ops[i++]();
-      if(i<ops.length)raf=requestAnimationFrame(tick);
-    }
-    raf=requestAnimationFrame(tick);
+/* ---------- blocks: each is generated for a cell, then cut into rows, and every row gets a sprite and its own dither dots ---------- */
+const BLOCKS=[{id:'bars',name:'the bars column',type:'bars',home:'D',seed:404},{id:'zig',name:'the zigzag',type:'zig',home:'B',seed:202},
+  {id:'dia',name:'the diagram',type:'dia',home:'A',alt:'C',seed:606},{id:'bars2',name:'the short bars',type:'bars',home:'F',alt:'E',seed:505}];
+function makeRow(ops,guides,texts){
+  let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;ops.forEach(o=>o.P.forEach(p=>{x0=Math.min(x0,p[0]);x1=Math.max(x1,p[0]);y0=Math.min(y0,p[1]);y1=Math.max(y1,p[1])}));
+  (texts||[]).forEach(t=>{x0=Math.min(x0,t.m[4]-16);x1=Math.max(x1,t.m[4]+16);y0=Math.min(y0,t.m[5]-16);y1=Math.max(y1,t.m[5]+16)});
+  x0=Math.floor(x0-6);y0=Math.floor(y0-6);x1=Math.ceil(x1+6);y1=Math.ceil(y1+6);const bw=Math.max(2,x1-x0),bh=Math.max(2,y1-y0);
+  const sp=document.createElement('canvas');sp.width=Math.ceil(bw*DPR);sp.height=Math.ceil(bh*DPR);const g=sp.getContext('2d',{willReadFrequently:true});g.setTransform(DPR,0,0,DPR,-x0*DPR,-y0*DPR);
+  ops.forEach(o=>drawNib(g,o));(texts||[]).forEach(t=>drawText(g,t));
+  /* dots: the row's ink sampled through an ordered dither */
+  const d=g.getImageData(0,0,sp.width,sp.height).data,st=2,dx=[],dy=[];
+  for(let y=0;y<bh-1;y+=st)for(let x=0;x<bw-1;x+=st){const cov=d[(Math.round((y+.5)*DPR)*sp.width+Math.round((x+.5)*DPR))*4+3]/255;if(cov<.06)continue;
+    if(cov*1.5>(BAY[(((x0+x)/st)&3)+4*(((y0+y)/st)&3)]+.5)/16){dx.push(x0+x);dy.push(y0+y)}}
+  (guides||[]).forEach(o=>drawGuide(g,o));
+  const n=dx.length,row={ops,sp,bx:x0,by:y0,bw,bh,n,dx:Float32Array.from(dx),dy:Float32Array.from(dy),dr:new Float32Array(n),dt:new Float32Array(n),ox:new Float32Array(n),oy:new Float32Array(n),static:0,struck:0,single:ops.length===1&&ops[0].P.length>14};
+  for(let i=0;i<n;i++){const a=PRND()*TAU,l=10+36*Math.sqrt(PRND());row.dr[i]=PRND();row.dt[i]=PRND()*.9;row.ox[i]=Math.cos(a)*l;row.oy[i]=Math.sin(a)*l*.7}
+  return row;
+}
+let PRND=mulberry(9);
+function gen(type,rect,seed){
+  RO=[];RG=[];TX=[];R=mulberry(seed);Q=mulberry(seed+7);FLAT=false;
+  if(type==='zig')zigzag(rect[0],rect[1],rect[2],rect[3],SC);else if(type==='bars')bars(rect[0],rect[1],rect[2],rect[3],SC);else drawDiagram(rect[0],rect[1],rect[2],rect[3]);
+  const rows=[];
+  if(type==='dia'){let batch=[];const flush=()=>{if(batch.length){rows.push(makeRow(batch));batch=[]}};
+    RO.forEach(o=>{if(o.P.length>14){flush();rows.push(makeRow([o]))}else{batch.push(o);if(batch.length>=12)flush()}});flush();if(TX.length)rows.push(makeRow([],null,TX))}
+  else{let cur=[],px=-1e9,gi=0;const flush=()=>{if(cur.length){rows.push(makeRow(cur,RG[gi]?[RG[gi]]:null));gi++;cur=[]}};
+    RO.forEach(o=>{if(o.P[0][0]<px-15)flush();px=o.P[0][0];cur.push(o)});flush()}
+  return rows;
+}
+
+/* ---------- time: one event at a time (a block fills, moves, or is revised), with a pause between ---------- */
+const S2DUR={pen:1.1,condense:2.3,fade:1.8};
+let T=0,TR=[],LATER=[],busy=false,evEnd=0,nextAt=0,lastKind='',ERND=mulberry(77),nowText='';
+const rowDur=()=>S2DUR[S.mode];
+function fillBlock(b,key,t0){
+  b.cell=key;b.rows=gen(b.type,CELLS[key],b.seed+(b.gen=(b.gen||0)+1)*31);b.present=true;
+  const n=b.rows.length,st=Math.max(.04,(S.fillDur-rowDur())/Math.max(1,n-1));b.rows.forEach((r,i)=>TR.push({r,t0:t0+i*st,dur:rowDur(),dir:1}));return t0+(n-1)*st+rowDur();
+}
+function clearBlock(b,t0,span){const n=b.rows.length,st=span/Math.max(1,n);b.rows.forEach((r,i)=>TR.push({r,t0:t0+(n-1-i)*st,dur:rowDur(),dir:-1}));const end=t0+span+rowDur();LATER.push({t:end,fn:()=>{b.present=false;b.rows=[]}});return end}
+function strikeOp(r){const a=r.ops[0].P[0],o=r.ops[r.ops.length-1],b=o.P[o.P.length-1],up=Math.min(7,r.bh*.22);
+  return{P:[[a[0]-3,a[1]-up,a[2]],[(a[0]+b[0])/2,(a[1]+b[1])/2-up,(a[2]+b[2])/2],[b[0]+3,b[1]-up,b[2]]],w:1.5,con:.1,ang:-.6,a:.9,flat:1,sa:3,al:1}}
+function nextEvent(){
+  const live=BLOCKS.filter(b=>CELLS[b.home]),absent=live.filter(b=>!b.present);
+  if(S.fill&&absent.length){const b=absent[0];evEnd=fillBlock(b,b.home,T);busy=true;lastKind='fill';nowText='filling '+b.name;return}
+  const opts=[];
+  if(S.move)live.filter(b=>b.present&&b.alt&&CELLS[b.alt]).forEach(b=>opts.push(['move',b]));
+  if(S.revise)live.filter(b=>b.present&&b.type!=='dia'&&b.rows.length>4).forEach(b=>opts.push(['revise',b]));
+  if(!opts.length){nowText=absent.length?'nothing more is switched on':'the page is composed; nothing more is switched on';nextAt=1e9;return}
+  const other=opts.filter(o=>o[0]!==lastKind),pool=other.length?other:opts,pick=pool[(ERND()*pool.length)|0],b=pick[1];lastKind=pick[0];busy=true;
+  if(pick[0]==='move'){const to=b.cell===b.home?b.alt:b.home,e1=clearBlock(b,T,Math.min(4,S.fillDur*.3));nowText='moving '+b.name;evEnd=e1+.5+S.fillDur+.1;
+    LATER.push({t:e1+.5,fn:()=>{evEnd=fillBlock(b,to,T)}})}
+  else{const k=2+((ERND()*3)|0),i0=(ERND()*(b.rows.length-k))|0,rows=b.rows.slice(i0,i0+k);nowText='revising '+b.name;
+    rows.forEach((r,j)=>{r.strike=strikeOp(r);TR.push({kind:'strike',r,t0:T+j*.5,dur:.7})});
+    const t1=T+k*.5+1.4;rows.forEach((r,j)=>TR.push({r,t0:t1+j*.3,dur:rowDur(),dir:-1}));
+    const t2=t1+k*.3+rowDur()+.4;evEnd=t2+k*.5+rowDur();
+    LATER.push({t:t2,fn:()=>{const fresh=gen(b.type,CELLS[b.cell],b.seed+(b.gen=(b.gen||0)+1)*31);rows.forEach((r,j)=>{const nr=fresh[i0+j];if(!nr)return;b.rows[i0+j]=nr;TR.push({r:nr,t0:T+j*.5,dur:rowDur(),dir:1})})}})}
+}
+function drawRow(r,q){
+  if(S.mode==='pen'){
+    if(r.single){const op=r.ops[0];drawNib(fx,Object.assign({},op,{P:op.P.slice(0,Math.max(2,Math.ceil(q*op.P.length)))}))}
+    else{const sw=Math.floor(r.sp.width*q);if(sw>=1)fx.drawImage(r.sp,0,0,sw,r.sp.height,r.bx,r.by,sw/DPR,r.bh)}
+  }else{
+    const u=Math.min(1,q/.72),c=s01((q-.72)/.28),fade=S.mode==='fade';
+    if(c<1){fx.fillStyle=INK;for(let i=0;i<r.n;i++){let a=1,x=r.dx[i],y=r.dy[i];
+        if(fade){if(u<r.dt[i])continue}
+        else{const e=s01((u-r.dr[i]*.35)/.65);if(e<=0)continue;const k=1-e,an=k*1.3*(r.dr[i]<.5?1:-1),ca=Math.cos(an),sa=Math.sin(an);x+=(r.ox[i]*ca-r.oy[i]*sa)*k;y+=(r.ox[i]*sa+r.oy[i]*ca)*k;a=e}
+        fx.globalAlpha=a*(1-c);fx.fillRect(x,y,1.5,1.5)}}
+    if(c>0){fx.globalAlpha=c;fx.drawImage(r.sp,r.bx,r.by,r.bw,r.bh)}
+    fx.globalAlpha=1;
   }
+  if(r.struck&&r.strike)drawNib(fx,Object.assign({},r.strike,{a:.9*q}));
+}
+function drawDoc(){doc.clearRect(0,0,W,H);doc.drawImage(linesC,0,0,W,H);
+  BLOCKS.forEach(b=>{if(b.present)b.rows.forEach(r=>{if(r.static){doc.drawImage(r.sp,r.bx,r.by,r.bw,r.bh);if(r.struck&&r.strike)drawNib(doc,r.strike)}})})}
+function step(dt){
+  T+=dt*S.speed;let dirty=false;
+  LATER=LATER.filter(l=>{if(T>=l.t){l.fn();dirty=true;return false}return true});
+  if(busy&&T>=evEnd&&!TR.length&&!LATER.length){busy=false;nextAt=T+S.gap;nowText=''}
+  if(!busy&&T>=nextAt)nextEvent();
+  fx.clearRect(0,0,W,H);
+  TR=TR.filter(tr=>{if(T<tr.t0)return true;const s=(T-tr.t0)/tr.dur;
+    if(tr.kind==='strike'){if(s>=1){tr.r.struck=1;dirty=true;return false}const op=tr.r.strike;drawNib(fx,Object.assign({},op,{P:[op.P[0],[op.P[0][0]+(op.P[2][0]-op.P[0][0])*s,op.P[0][1]+(op.P[2][1]-op.P[0][1])*s,op.P[1][2]]]}));return true}
+    if(!tr.on){tr.on=1;if(tr.dir<0){tr.r.static=0;dirty=true}}
+    if(s>=1){if(tr.dir>0)tr.r.static=1;else tr.r.struck=0;dirty=true;return false}
+    drawRow(tr.r,tr.dir>0?s:1-s);return true});
+  if(dirty)drawDoc();
+}
 
-  var still=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var lastW=0,lastH=0,timer;
-  function start(){lastW=window.innerWidth;lastH=window.innerHeight;draw(!still)}
-  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(start);else start();
-
-  /* redraw on real resizes only; a phone's address bar sliding away is not one */
-  window.addEventListener('resize',function(){
-    clearTimeout(timer);
-    timer=setTimeout(function(){
-      var w=window.innerWidth,h=window.innerHeight;
-      if(w===lastW&&Math.abs(h-lastH)<140)return;
-      lastW=w;lastH=h;draw(false);
-    },160);
-  });
+/* ---------- build and playback ---------- */
+const RM=matchMedia('(prefers-reduced-motion: reduce)');
+function restart(all){
+  TR=[];LATER=[];T=0;busy=false;lastKind='';ERND=mulberry(77);PRND=mulberry(9);
+  BLOCKS.forEach(b=>{b.present=false;b.rows=[];b.gen=0;b.cell=b.home});
+  BLOCKS.forEach(b=>{if((all||b.id==='bars'||b.id==='zig')&&CELLS[b.home]){b.rows=gen(b.type,CELLS[b.home],b.seed);b.rows.forEach(r=>r.static=1);b.present=true}});
+  nextAt=3;drawDoc();fx.clearRect(0,0,W,H);
+}
+function build(){
+  DPR=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;mobile=W<720;
+  [docC,dzC,fxC].forEach(cv=>{cv.width=Math.round(W*DPR);cv.height=Math.round(H*DPR)});
+  doc=docC.getContext('2d');dz=dzC.getContext('2d');fx=fxC.getContext('2d');[doc,dz,fx].forEach(c=>c.setTransform(DPR,0,0,DPR,0,0));
+  const r=$('copy').getBoundingClientRect();textRight=r.right;
+  F=mobile?{x:0,y:r.bottom+8,w:W,h:H-r.bottom-8}:{x:Math.max(r.right+48,W*.3),y:0,w:0,h:H};if(!mobile)F.w=W-F.x;
+  xL=F.x;span=F.w;vy=F.y+F.h*.44;N=makeNoise(mulberry(11));
+  buildStatic();
+  /* the square's dither grid */
+  const c=DZ,q=c.quad,s=3;let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;q.forEach(p=>{x0=Math.min(x0,p[0]);x1=Math.max(x1,p[0]);y0=Math.min(y0,p[1]);y1=Math.max(y1,p[1])});
+  c.bb=[x0,y0,x1,y1];const gx=[],gy=[],gt=[],gb=[],gu=[],gv=[],ge=[],eu=6/(x1-x0),ev=6/(y1-y0);
+  for(let y=Math.floor(y0/s)*s;y<y1;y+=s)for(let x=Math.floor(x0/s)*s;x<x1;x+=s){
+    if(x>W||y>H||!inPoly(x+1,y+1,q))continue;
+    const u=(x-q[0][0])/(q[1][0]-q[0][0]),top=q[0][1]+(q[1][1]-q[0][1])*u,bot=q[3][1]+(q[2][1]-q[3][1])*u,v=(y-top)/(bot-top);
+    gx.push(x);gy.push(y);gt.push(.6);gb.push((BAY[((x/s)&3)+4*((y/s)&3)]+.5)/16);gu.push(u);gv.push(v);ge.push(u<eu||u>1-eu||v<ev||v>1-ev?1:0)}
+  c.gx=Float32Array.from(gx);c.gy=Float32Array.from(gy);c.gt=Float32Array.from(gt);c.gb=Float32Array.from(gb);c.gu=Float32Array.from(gu);c.gv=Float32Array.from(gv);c.ge=Uint8Array.from(ge);
+  dz.clearRect(0,0,W,H);lastF=-1;
+  /* reduced motion: the composed page, with the ginkgo still in the square */
+  if(RM.matches){restart(true);drawDz(0,true)}else{restart(false);drawDz(RT+2.1)}
+}
+let RT=0,last=0,raf=0,lastF=-1,paused=false;
+function frame(now){raf=0;if(paused||document.hidden||RM.matches)return;const dt=clamp((now-last)/1000,0,.1);last=now;RT+=dt;step(dt);
+  const f=Math.floor(RT*24);if(f!==lastF){lastF=f;drawDz(RT+2.1)}                 /* the square: real time, 24 updates a second */
+  raf=requestAnimationFrame(frame)}
+function run(){if(raf||paused||document.hidden||RM.matches)return;last=performance.now();raf=requestAnimationFrame(frame)}
+function setPaused(p){paused=p;const b=$('pause');b.setAttribute('aria-pressed',p);b.textContent=p?'play motion':'pause motion';if(!p)run()}
+$('pause').addEventListener('click',()=>setPaused(!paused));
+/* Space pauses. For review only: R starts the page over. */
+addEventListener('keydown',e=>{if(e.metaKey||e.ctrlKey||e.altKey)return;const k=e.key.toLowerCase();
+  if(k==='r'){RT=0;build();setPaused(false)}
+  else if(k===' '&&e.target.tagName!=='BUTTON'&&e.target.tagName!=='A'){e.preventDefault();setPaused(!paused)}});
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)run()});
+RM.addEventListener('change',()=>{cancelAnimationFrame(raf);raf=0;build();run()});
+let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{build();run()},160)});
+window.__page={adv(sec){const n=Math.round(sec*30);for(let i=0;i<n;i++){RT+=1/30;step(1/30)}drawDz(RT+2.1)},state:()=>({T,busy,nowText,tr:TR.length,blocks:BLOCKS.map(b=>b.id+':'+(b.present?b.cell+'/'+b.rows.length:'-'))}),pause:()=>setPaused(true)};
+const fonts=document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve();
+Promise.race([fonts,new Promise(r=>setTimeout(r,900))]).then(()=>{build();run()});
 })();
 </script>
-<noscript><style>main > *{opacity:1!important;transform:none!important;animation:none!important}</style></noscript>
 </body>
 </html>
