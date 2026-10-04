@@ -110,11 +110,13 @@ function proj(x,y){if(x<=xL)return[x,y,1];const t=(x-xL)/span,s=1/(1+K*t);return
 const seg=(x0,y0,x1,y1,step)=>{step=step||7;const n=Math.max(1,Math.ceil(Math.hypot(x1-x0,y1-y0)/step)),o=[];for(let i=0;i<=n;i++)o.push([x0+(x1-x0)*i/n,y0+(y1-y0)*i/n]);return o};
 
 /* ---------- marks are recorded once as ops, then drawn into a sprite per cell ---------- */
-let RO,RG;
-function nib(pts,o){RO.push({P:pts.map(p=>proj(p[0],p[1])),w:o.w,con:o.con==null?.5:o.con,ang:o.ang==null?-.6:o.ang,a:o.a||.92,flat:o.flat,sa:Q()*99,al:.86+.14*Q()})}
-function guide(x0,y0,x1,y1,a){RG.push({A:proj(x0,y0),B:proj(x1,y1),a:a||.2})}
+let RO,RG,CUR=0,ROWM=[];
+function row(xa,xb,y){CUR=ROWM.length;ROWM.push({a:proj(xa,y),b:proj(xb,y)})}       /* starts a written row and says where its strike-through runs */
+function nib(pts,o){RO.push({P:pts.map(p=>proj(p[0],p[1])),w:o.w,con:o.con==null?.5:o.con,ang:o.ang==null?-.6:o.ang,a:o.a||.92,flat:o.flat,sa:Q()*99,al:.86+.14*Q(),row:CUR})}
+function guide(x0,y0,x1,y1,a){RG.push({A:proj(x0,y0),B:proj(x1,y1),a:a||.2,row:CUR})}
 function rule(x0,y0,x1,y1,w){nib(seg(x0,y0,x1,y1,9),{w:w||.9,con:.15,a:.88})}
 function drawNib(c,op){
+  if(op.dot){c.fillStyle=INK;c.globalAlpha=op.a;const P=op.P;for(let i=0;i<P.length;i++){const z=op.sz*P[i][2];c.fillRect(P[i][0],P[i][1],z,z)}c.globalAlpha=1;return}
   const P=op.P,n=P.length;if(n<2)return;const L=[],Rt=[];
   for(let i=0;i<n;i++){
     const a=P[Math.max(0,i-1)],b=P[Math.min(n-1,i+1)],dx=b[0]-a[0],dy=b[1]-a[1],len=Math.hypot(dx,dy)||1,s=P[i][2]||1,t=i/(n-1);
@@ -127,34 +129,42 @@ function drawNib(c,op){
 }
 function drawGuide(c,g){c.strokeStyle=PENCIL;c.globalAlpha=g.a;c.lineWidth=.6;c.beginPath();c.moveTo(g.A[0],g.A[1]);c.lineTo(g.B[0],g.B[1]);c.stroke();c.globalAlpha=1}
 
-/* ---------- the two hands: abstract marks, never letters ---------- */
-function zigzag(x0,y0,x1,y1,sc){
-  for(let y=y0+14*sc;y<y1-2;y+=15*sc){
-    guide(x0,y+1.5,x1,y+1.5,.2);
-    const end=x0+(x1-x0)*(R()<.2?rr(.3,.8):1);
-    for(let x=x0;x<end-10*sc;){
-      const len=Math.min(rr(14,62)*sc,end-x),amps=[];let pts=[];
-      for(let ph=0;;ph+=Math.PI){const c=Math.floor(ph/TAU);if(amps[c]===undefined)amps[c]=R()<.17?2.1:rr(.6,1.2);const xx=x+ph*1.9*sc;if(xx>x+len)break;const yy=y-7*sc*amps[c]*(.5-.5*Math.cos(ph));
-        if(pts.length)pts=pts.concat(seg(pts[pts.length-1][0],pts[pts.length-1][1],xx,yy,4).slice(1));else pts.push([xx,yy])}
-      if(pts.length>1)nib(pts,{w:1.6*sc,con:.55,ang:-.7,a:.96});
-      x+=len+rr(6,11)*sc;
+/* ---------- the two hands: abstract marks, never letters. Joe's picks from the placeholder marks study.
+   Rows sit at a fixed pitch, so a rewritten row always lands where the struck one was.
+   o = {w: weight, d: density}. ---------- */
+const BAY=[0,8,2,10,12,4,14,6,3,11,1,9,15,7,13,5];
+/* tone strips: bands of dithered tone that rise and fall word by word */
+function tone(x0,y0,x1,y1,sc,o){
+  const h=6*sc*o.w,p=Math.max(11.5*sc/o.d,h+3.2*sc),g=2.3*sc;
+  for(let y=y0+10*sc;y+h/2<y1-2;y+=p){
+    const end=x0+(x1-x0)*(R()<.18?rr(.3,.8):rr(.9,1));row(x0,end,y);
+    const words=[];for(let x=x0;x<end-6*sc;){const l=Math.min(rr(10,60)*sc,end-x);words.push([x,x+l,rr(.3,.95)]);x+=l+rr(4,8)*sc}
+    const pts=[];
+    words.forEach(q=>{const a=q[0],b=q[1],L=q[2];for(let x=a;x<b;x+=g){const i=Math.round((x-x0)/g);for(let j=0,yy=y-h/2;yy<y+h/2-g*.4;yy+=g,j++){
+      const t=L*Math.min(1,(x-a)/(4*sc)+.35,(b-x)/(4*sc)+.35)*(.75+.5*N(x*.06,y*.3));if(t>(BAY[(i&3)+4*(j&3)]+.5)/16)pts.push(proj(x,yy))}}});
+    if(pts.length)RO.push({dot:1,P:pts,sz:1.75*sc,a:.95,al:1,row:CUR});
+  }
+}
+/* loops: a running hand of plain loops, some taller, grouped like words */
+function loops(x0,y0,x1,y1,sc,o){
+  const p=16*sc/o.d,w=1.15*sc*o.w,hh=6.6*sc*Math.min(1,1.15/o.d),c=1.25*sc,d=2.5*sc,adv=c*TAU;
+  for(let y=y0+15*sc;y<y1-2;y+=p){
+    const end=x0+(x1-x0)*(R()<.2?rr(.3,.8):rr(.9,1));row(x0,end,y-hh*.5);guide(x0,y+1.5,x1,y+1.5,.2);
+    for(let x=x0+d;x<end-adv;){
+      const n=Math.min(2+((R()*6)|0),Math.floor((end-x)/adv));if(n<1)break;const pts=[];
+      for(let k=0;k<n;k++){const h=R()<.18?hh*1.85:hh*rr(.8,1.1);for(let i=k?1:0;i<=14;i++){const th=TAU*i/14;pts.push([x+k*adv+c*th+d*Math.sin(th),y-h*(1-Math.cos(th))/2])}}
+      nib(pts,{w,con:.5,ang:-.7,a:.95});x+=n*adv+rr(6,10)*sc;
     }
   }
 }
-function bars(x0,y0,x1,y1,sc){
-  for(let y=y0+8*sc;y<y1-2;y+=8.6*sc){
-    const end=R()<.13?x0+(x1-x0)*rr(.35,.82):x1,drift=rr(-.7,.7)*sc;
-    for(let x=x0;x<end-8*sc;){
-      const l=Math.min(rr(8,44)*sc,end-x);
-      if(R()<.94)nib(seg(x,y+drift,x+l,y+drift+rr(-.5,.5)*sc,6),{w:5.4*sc,con:.12,ang:-.4,flat:1,a:.97});
-      x+=l+rr(2.5,5)*sc;
-    }
-  }
-}
+/* which hand a block is written in, and how heavily.
+   Wide screens: tone strips (weight 60, density 60) in the light slot, loops (weight 55, density 60) in the heavy slot,
+   where every mark is drawn 1.55 times heavier and 1.3 times denser. Phones: loops (weight 70, density 60). */
+const hand=type=>mobile?[loops,{w:.7,d:.6}]:type==='light'?[tone,{w:.6,d:.6}]:[loops,{w:.55*1.55,d:.6*1.3}];
 
 /* ---------- settings ---------- */
 /* ---------- settings: Joe's picks ----------
-   A row arrives as a dither fade. The bars column and the zigzag are on the page at load. Blocks fill, move, and have lines struck and rewritten.
+   A row arrives as a dither fade. The two written blocks (the heavy column and the light block) are on the page at load. Blocks fill, move, and have lines struck and rewritten.
    A block takes 6 s and events are 4 s apart on the study's clock, and that clock runs at 4x, so on screen a block fills in 1.5 s
    with 1 s between events. The dithered square does not use this clock and keeps its own slower pace. */
 const S={dia:'circulation',geo:'persp',end:'fade',mode:'fade',fill:true,move:true,revise:true,fillDur:6,gap:4,speed:4};
@@ -207,12 +217,11 @@ function leftTrail(x0,y,stopX){
 function downTrail(x,y0){const s=proj(x,0)[2],yE=vy+(H+6-vy)/s;if(yE-y0<10)return;const a=proj(x,y0),b=proj(x,yE);trail(e=>proj(x,y0+(yE-y0)*e),b[1]-a[1])}
 
 /* ---------- layout: outline, lines running on to the edges, the cells, and the square ---------- */
-const BAY=[0,8,2,10,12,4,14,6,3,11,1,9,15,7,13,5];
 function inPoly(x,y,q){let c=false;for(let i=0,j=q.length-1;i<q.length;j=i++){if((q[i][1]>y)!==(q[j][1]>y)&&x<(q[j][0]-q[i][0])*(y-q[i][1])/(q[j][1]-q[i][1])+q[i][0])c=!c}return c}
 let DZ=null,textRight=0,CELLS={},linesC=null,SC=1;
 function buildStatic(){
   const fy0=F.y+(mobile?16:42),fy1=F.y+F.h-(mobile?26:40),hgt=fy1-fy0,Y=f=>fy0+hgt*f;SC=mobile?.82:1;
-  /* phones: the first two columns only (diagram and zigzag, then the square); the bars column and the short bars are cut,
+  /* phones: the first two columns only (diagram over the written block, then the square); the heavy column and the short block are cut,
      and the top rules run off the right edge as if the page went on */
   const b=mobile?[.04,.66,1.36]:[.02,.467,.903,1.406,1.9],X=b.map(t=>xL+t*span),cut=mobile?.36:.42,n=X.length-1,XR=mobile?xL+1.7*span:X[n];
   RO=[];RG=[];R=mulberry(101);Q=mulberry(108);
@@ -284,8 +293,8 @@ function drawDz(ts,still){
 }
 
 /* ---------- blocks: each is generated for a cell, then cut into rows, and every row gets a sprite and its own dither dots ---------- */
-const BLOCKS=[{id:'bars',name:'the bars column',type:'bars',home:'D',seed:404},{id:'zig',name:'the zigzag',type:'zig',home:'B',seed:202},
-  {id:'dia',name:'the diagram',type:'dia',home:'A',alt:'C',seed:606},{id:'bars2',name:'the short bars',type:'bars',home:'F',alt:'E',seed:505}];
+const BLOCKS=[{id:'bars',name:'the heavy column',type:'heavy',home:'D',seed:404},{id:'zig',name:'the light block',type:'light',home:'B',seed:202},
+  {id:'dia',name:'the diagram',type:'dia',home:'A',alt:'C',seed:606},{id:'bars2',name:'the short block',type:'heavy',home:'F',alt:'E',seed:505}];
 function makeRow(ops,guides,texts){
   let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;ops.forEach(o=>o.P.forEach(p=>{x0=Math.min(x0,p[0]);x1=Math.max(x1,p[0]);y0=Math.min(y0,p[1]);y1=Math.max(y1,p[1])}));
   (texts||[]).forEach(t=>{x0=Math.min(x0,t.m[4]-16);x1=Math.max(x1,t.m[4]+16);y0=Math.min(y0,t.m[5]-16);y1=Math.max(y1,t.m[5]+16)});
@@ -303,13 +312,12 @@ function makeRow(ops,guides,texts){
 }
 let PRND=mulberry(9);
 function gen(type,rect,seed){
-  RO=[];RG=[];TX=[];R=mulberry(seed);Q=mulberry(seed+7);FLAT=false;
-  if(type==='zig')zigzag(rect[0],rect[1],rect[2],rect[3],SC);else if(type==='bars')bars(rect[0],rect[1],rect[2],rect[3],SC);else drawDiagram(rect[0],rect[1],rect[2],rect[3]);
-  const rows=[];
-  if(type==='dia'){let batch=[];const flush=()=>{if(batch.length){rows.push(makeRow(batch));batch=[]}};
-    RO.forEach(o=>{if(o.P.length>14){flush();rows.push(makeRow([o]))}else{batch.push(o);if(batch.length>=12)flush()}});flush();if(TX.length)rows.push(makeRow([],null,TX))}
-  else{let cur=[],px=-1e9,gi=0;const flush=()=>{if(cur.length){rows.push(makeRow(cur,RG[gi]?[RG[gi]]:null));gi++;cur=[]}};
-    RO.forEach(o=>{if(o.P[0][0]<px-15)flush();px=o.P[0][0];cur.push(o)});flush()}
+  RO=[];RG=[];TX=[];ROWM=[];CUR=0;R=mulberry(seed);Q=mulberry(seed+7);FLAT=false;const rows=[];
+  if(type==='dia'){drawDiagram(rect[0],rect[1],rect[2],rect[3]);let batch=[];const flush=()=>{if(batch.length){rows.push(makeRow(batch));batch=[]}};
+    RO.forEach(o=>{if(o.P.length>14){flush();rows.push(makeRow([o]))}else{batch.push(o);if(batch.length>=12)flush()}});flush();if(TX.length)rows.push(makeRow([],null,TX));return rows}
+  const h=hand(type);h[0](rect[0],rect[1],rect[2],rect[3],SC,h[1]);
+  const G=ROWM.map(()=>({ops:[],gs:[]}));RO.forEach(o=>G[o.row].ops.push(o));RG.forEach(g=>G[g.row].gs.push(g));
+  G.forEach((q,i)=>{if(q.ops.length){const r=makeRow(q.ops,q.gs);r.sk=ROWM[i];rows.push(r)}});
   return rows;
 }
 
@@ -322,8 +330,7 @@ function fillBlock(b,key,t0){
   const n=b.rows.length,st=Math.max(.04,(S.fillDur-rowDur())/Math.max(1,n-1));b.rows.forEach((r,i)=>TR.push({r,t0:t0+i*st,dur:rowDur(),dir:1}));return t0+(n-1)*st+rowDur();
 }
 function clearBlock(b,t0,span){const n=b.rows.length,st=span/Math.max(1,n);b.rows.forEach((r,i)=>TR.push({r,t0:t0+(n-1-i)*st,dur:rowDur(),dir:-1}));const end=t0+span+rowDur();LATER.push({t:end,fn:()=>{b.present=false;b.rows=[]}});return end}
-function strikeOp(r){const a=r.ops[0].P[0],o=r.ops[r.ops.length-1],b=o.P[o.P.length-1],up=Math.min(7,r.bh*.22);
-  return{P:[[a[0]-3,a[1]-up,a[2]],[(a[0]+b[0])/2,(a[1]+b[1])/2-up,(a[2]+b[2])/2],[b[0]+3,b[1]-up,b[2]]],w:1.5,con:.1,ang:-.6,a:.9,flat:1,sa:3,al:1}}
+function strikeOp(r){const a=r.sk.a,b=r.sk.b;return{P:[[a[0]-3,a[1],a[2]],[(a[0]+b[0])/2,(a[1]+b[1])/2,(a[2]+b[2])/2],[b[0]+3,b[1],b[2]]],w:1.5,con:.1,ang:-.6,a:.9,flat:1,sa:3,al:1}}
 function nextEvent(){
   const live=BLOCKS.filter(b=>CELLS[b.home]),absent=live.filter(b=>!b.present);
   if(S.fill&&absent.length){const b=absent[0];evEnd=fillBlock(b,b.home,T);busy=true;lastKind='fill';nowText='filling '+b.name;return}
@@ -334,11 +341,11 @@ function nextEvent(){
   const other=opts.filter(o=>o[0]!==lastKind),pool=other.length?other:opts,pick=pool[(ERND()*pool.length)|0],b=pick[1];lastKind=pick[0];busy=true;
   if(pick[0]==='move'){const to=b.cell===b.home?b.alt:b.home,e1=clearBlock(b,T,Math.min(4,S.fillDur*.3));nowText='moving '+b.name;evEnd=e1+.5+S.fillDur+.1;
     LATER.push({t:e1+.5,fn:()=>{evEnd=fillBlock(b,to,T)}})}
-  else{const k=2+((ERND()*3)|0),i0=(ERND()*(b.rows.length-k))|0,rows=b.rows.slice(i0,i0+k);nowText='revising '+b.name;
+  else{const k=Math.min(2+((ERND()*3)|0),b.rows.length-1),i0=(ERND()*(b.rows.length-k))|0,rows=b.rows.slice(i0,i0+k);nowText='revising '+b.name;
     rows.forEach((r,j)=>{r.strike=strikeOp(r);TR.push({kind:'strike',r,t0:T+j*.5,dur:.7})});
     const t1=T+k*.5+1.4;rows.forEach((r,j)=>TR.push({r,t0:t1+j*.3,dur:rowDur(),dir:-1}));
     const t2=t1+k*.3+rowDur()+.4;evEnd=t2+k*.5+rowDur();
-    LATER.push({t:t2,fn:()=>{const fresh=gen(b.type,CELLS[b.cell],b.seed+(b.gen=(b.gen||0)+1)*31);rows.forEach((r,j)=>{const nr=fresh[i0+j];if(!nr)return;b.rows[i0+j]=nr;TR.push({r:nr,t0:T+j*.5,dur:rowDur(),dir:1})})}})}
+    LATER.push({t:t2,fn:()=>{const fresh=gen(b.type,CELLS[b.cell],b.seed+(b.gen=(b.gen||0)+1)*31);rows.forEach((r,j)=>{const nr=fresh.find(f=>Math.abs(f.sk.a[1]-r.sk.a[1])<1.5);if(!nr)return;b.rows[i0+j]=nr;TR.push({r:nr,t0:T+j*.5,dur:rowDur(),dir:1})})}})}
 }
 function drawRow(r,q){
   if(S.mode==='pen'){
