@@ -27,14 +27,15 @@
   body{background:var(--paper);color:var(--ink);font-family:var(--serif);overflow:hidden;-webkit-font-smoothing:antialiased}
   canvas{position:fixed;inset:0;width:100%;height:100%;display:block}
 
-  /* film grain on white, kept barely there: a fine layer, an uneven copy of it, a coarser layer, and light specks */
+  /* film grain on white: a fine layer, an uneven copy of it, a coarser layer, and light specks.
+     Joe's settings: film fine 53, film coarse 4, size 50%, light specks 52, unevenness 14 (fine = .53*(1-.14), uneven = .53*.14*1.7) */
   .grain{position:fixed;inset:0;pointer-events:none;z-index:2}
   .grain i{position:absolute;inset:0;mix-blend-mode:multiply}
   .grain i:nth-child(1),.grain i:nth-child(2){background-size:110px 110px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.3' numOctaves='1' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .3  0 0 0 0 .26  0 0 0 0 .2  0 0 0 5 -2.7'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-  .grain i:nth-child(1){opacity:.035}
-  .grain i:nth-child(2){opacity:.09;-webkit-mask-image:var(--mask);mask-image:var(--mask);-webkit-mask-size:900px 900px;mask-size:900px 900px}
-  .grain i:nth-child(3){opacity:.05;background-size:150px 150px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.55' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .3  0 0 0 0 .26  0 0 0 0 .2  0 0 0 6 -3.1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-  .grain i:nth-child(4){opacity:.1;mix-blend-mode:normal;background-size:130px 130px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='1' seed='9' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 6 -3.5'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .grain i:nth-child(1){opacity:.456}
+  .grain i:nth-child(2){opacity:.126;-webkit-mask-image:var(--mask);mask-image:var(--mask);-webkit-mask-size:900px 900px;mask-size:900px 900px}
+  .grain i:nth-child(3){opacity:.04;background-size:150px 150px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.55' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .3  0 0 0 0 .26  0 0 0 0 .2  0 0 0 6 -3.1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .grain i:nth-child(4){opacity:.52;mix-blend-mode:normal;background-size:130px 130px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='1' seed='9' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 6 -3.5'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
   :root{--mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='900'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.006' numOctaves='3' seed='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 5 -2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 
   /* the text: name in title case, everything else lowercase */
@@ -50,13 +51,7 @@
   .copy a:hover,.copy a:focus-visible{background-size:100% 1px,100% 1px}
   @keyframes rise{from{opacity:0;transform:translateY(calc(-50% + 6px))}to{opacity:1;transform:translateY(-50%)}}
 
-  /* the one small control */
-  .bar{position:fixed;z-index:4;bottom:16px;display:flex;align-items:center;gap:.7rem;font-family:var(--mono);font-size:.68rem;letter-spacing:.04em;color:var(--soft)}
-  #motion{left:var(--m)}
-  .bar button{font:inherit;letter-spacing:inherit;color:var(--soft);background:none;border:0;padding:6px 2px;cursor:pointer;border-bottom:1px solid transparent}
-  .bar button:hover{color:var(--ink)}
-  .bar button[aria-pressed="true"]{color:var(--ink);border-bottom-color:var(--ink)}
-  a:focus-visible,button:focus-visible{outline:2px solid #6d8db0;outline-offset:3px;border-radius:2px}
+  a:focus-visible{outline:2px solid #6d8db0;outline-offset:3px;border-radius:2px}
 
   @media (max-width:719px){
     .copy{left:24px;right:24px;top:30px;transform:none;animation-name:rise-m}
@@ -64,13 +59,16 @@
     .copy .role{margin:.7rem 0 .7rem}
     .copy ul{gap:0}
     .copy a{display:inline-block;padding:.95rem 0 .65rem;min-width:5.5rem}
-    #motion{left:24px}
+    /* phones get a lighter grain, Joe's pick: amount 23, fineness 69, size 50% */
+    .grain i:nth-child(1){opacity:.136}
+    .grain i:nth-child(2){opacity:.038}
+    .grain i:nth-child(3){opacity:.071}
+    .grain i:nth-child(4){opacity:.209}
     @keyframes rise-m{from{opacity:0}to{opacity:1}}
   }
   @media (prefers-reduced-motion:reduce){
     .copy{animation:none}
     .copy a{transition:none}
-    .bar{display:none}
   }
 </style>
 </head>
@@ -93,7 +91,6 @@
   </nav>
 </main>
 
-<div class="bar" id="motion"><button id="pause" aria-pressed="false">pause motion</button></div>
 <script>
 (()=>{
 const TAU=Math.PI*2,INK='#3d4257',PENCIL='#7d8296';
@@ -107,9 +104,9 @@ function makeNoise(rng){const tab=new Float32Array(256),perm=new Uint8Array(512)
 let R,Q,N;
 const rr=(a,b)=>a+R()*(b-a),clamp=(x,a,b)=>Math.max(a,Math.min(b,x)),s01=x=>{x=clamp(x,0,1);return x*x*(3-2*x)};
 
-/* ---------- the page plane: tilted back in space on wide screens, flat below 720px ---------- */
-let xL,span,vy;const K=.55,GAIN=1.1;
-function proj(x,y){if(mobile||x<=xL)return[x,y,1];const t=(x-xL)/span,s=1/(1+K*t);return[xL+span*t*GAIN*s,vy+(y-vy)*s,s]}
+/* ---------- the page plane: tilted back in space. Below 720px it keeps the tilt but is cut to two columns ---------- */
+let xL,span,vy,K=.55;const GAIN=1.1;
+function proj(x,y){if(x<=xL)return[x,y,1];const t=(x-xL)/span,s=1/(1+K*t);return[xL+span*t*GAIN*s,vy+(y-vy)*s,s]}
 const seg=(x0,y0,x1,y1,step)=>{step=step||7;const n=Math.max(1,Math.ceil(Math.hypot(x1-x0,y1-y0)/step)),o=[];for(let i=0;i<=n;i++)o.push([x0+(x1-x0)*i/n,y0+(y1-y0)*i/n]);return o};
 
 /* ---------- marks are recorded once as ops, then drawn into a sprite per cell ---------- */
@@ -214,10 +211,12 @@ const BAY=[0,8,2,10,12,4,14,6,3,11,1,9,15,7,13,5];
 function inPoly(x,y,q){let c=false;for(let i=0,j=q.length-1;i<q.length;j=i++){if((q[i][1]>y)!==(q[j][1]>y)&&x<(q[j][0]-q[i][0])*(y-q[i][1])/(q[j][1]-q[i][1])+q[i][0])c=!c}return c}
 let DZ=null,textRight=0,CELLS={},linesC=null,SC=1;
 function buildStatic(){
-  const fy0=F.y+(mobile?16:42),fy1=F.y+F.h-(mobile?52:40),hgt=fy1-fy0,Y=f=>fy0+hgt*f;SC=mobile?.82:1;
-  const b=mobile?[.05,.4,.76,.95]:[.02,.467,.903,1.406,1.9],X=b.map(t=>xL+t*span),cut=mobile?.3:.42,n=X.length-1;
+  const fy0=F.y+(mobile?16:42),fy1=F.y+F.h-(mobile?26:40),hgt=fy1-fy0,Y=f=>fy0+hgt*f;SC=mobile?.82:1;
+  /* phones: the first two columns only (diagram and zigzag, then the square); the bars column and the short bars are cut,
+     and the top rules run off the right edge as if the page went on */
+  const b=mobile?[.04,.66,1.36]:[.02,.467,.903,1.406,1.9],X=b.map(t=>xL+t*span),cut=mobile?.36:.42,n=X.length-1,XR=mobile?xL+1.7*span:X[n];
   RO=[];RG=[];R=mulberry(101);Q=mulberry(108);
-  rule(X[0],fy0,X[n],fy0,1.15);rule(X[0],fy0+3.6,X[n],fy0+3.6,.5);
+  rule(X[0],fy0,XR,fy0,1.15);rule(X[0],fy0+3.6,XR,fy0+3.6,.5);
   rule(X[1],fy0+3.6,X[1],fy1,.9);rule(X[0],Y(cut),X[1],Y(cut),.9);rule(X[2],fy0+3.6,X[2],Y(.94),.9);rule(X[1],Y(cut),X[2],Y(cut),.9);
   if(!mobile){rule(X[3],fy0+3.6,X[3],Y(.87),.9);rule(X[3],Y(.72),X[4],Y(.72),.9)}
   /* lines running on to the edges: top and middle leftward in perspective, all column rules downward, fading */
@@ -226,8 +225,8 @@ function buildStatic(){
   downTrail(X[1],fy1);downTrail(X[2],Y(.94));if(!mobile)downTrail(X[3],Y(.87));
   linesC=document.createElement('canvas');linesC.width=Math.round(W*DPR);linesC.height=Math.round(H*DPR);const g=linesC.getContext('2d');g.setTransform(DPR,0,0,DPR,0,0);RO.forEach(o=>drawNib(g,o));
   /* the cells a block can occupy. A and C are the upper cells of the first two columns; E is the upper cell of the fourth */
-  CELLS={A:[X[0]+14,fy0+16,X[1]-14,Y(cut)-12],B:[X[0]+8,Y(cut)+6,X[1]-8,fy1-4],C:[X[1]+14,fy0+16,X[2]-14,Y(cut)-12],D:[X[2]+8,fy0+9,X[3]-8,Y(.9)]};
-  if(!mobile){const h=Y(.9)-Y(.72)-6;CELLS.F=[X[3]+8,Y(.72)+6,X[4]-8,Y(.9)];CELLS.E=[X[3]+8,fy0+9,X[4]-8,fy0+9+h]}
+  CELLS={A:[X[0]+14,fy0+16,X[1]-14,Y(cut)-12],B:[X[0]+8,Y(cut)+6,X[1]-8,fy1-4],C:[X[1]+14,fy0+16,X[2]-14,Y(cut)-12]};
+  if(!mobile){const h=Y(.9)-Y(.72)-6;CELLS.D=[X[2]+8,fy0+9,X[3]-8,Y(.9)];CELLS.F=[X[3]+8,Y(.72)+6,X[4]-8,Y(.9)];CELLS.E=[X[3]+8,fy0+9,X[4]-8,fy0+9+h]}
   /* the square fills its cell */
   const a=Y(cut)+8,r=[X[1]+8,a,X[2]-8,Y(.94)-8];DZ={quad:[[r[0],r[1]],[r[2],r[1]],[r[2],r[3]],[r[0],r[3]]].map(p=>proj(p[0],p[1]))};
 }
@@ -386,7 +385,8 @@ function build(){
   doc=docC.getContext('2d');dz=dzC.getContext('2d');fx=fxC.getContext('2d');[doc,dz,fx].forEach(c=>c.setTransform(DPR,0,0,DPR,0,0));
   const r=$('copy').getBoundingClientRect();textRight=r.right;
   F=mobile?{x:0,y:r.bottom+8,w:W,h:H-r.bottom-8}:{x:Math.max(r.right+48,W*.3),y:0,w:0,h:H};if(!mobile)F.w=W-F.x;
-  xL=F.x;span=F.w;vy=F.y+F.h*.44;N=makeNoise(mulberry(11));
+  xL=F.x;span=F.w;K=mobile?.4:.55;vy=F.y+F.h*(mobile?.26:.44);   /* phones: a gentler tilt, with the eye level nearer the top */
+  N=makeNoise(mulberry(11));
   buildStatic();
   /* the square's dither grid */
   const c=DZ,q=c.quad,s=3;let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;q.forEach(p=>{x0=Math.min(x0,p[0]);x1=Math.max(x1,p[0]);y0=Math.min(y0,p[1]);y1=Math.max(y1,p[1])});
@@ -405,12 +405,11 @@ function frame(now){raf=0;if(paused||document.hidden||RM.matches)return;const dt
   const f=Math.floor(RT*24);if(f!==lastF){lastF=f;drawDz(RT+2.1)}                 /* the square: real time, 24 updates a second */
   raf=requestAnimationFrame(frame)}
 function run(){if(raf||paused||document.hidden||RM.matches)return;last=performance.now();raf=requestAnimationFrame(frame)}
-function setPaused(p){paused=p;const b=$('pause');b.setAttribute('aria-pressed',p);b.textContent=p?'play motion':'pause motion';if(!p)run()}
-$('pause').addEventListener('click',()=>setPaused(!paused));
-/* Space pauses. For review only: R starts the page over. */
+function setPaused(p){paused=p;if(!p)run()}
+/* There is no visible control. Space pauses and resumes; the page is still for anyone with reduced motion on. For review only: R starts the page over. */
 addEventListener('keydown',e=>{if(e.metaKey||e.ctrlKey||e.altKey)return;const k=e.key.toLowerCase();
   if(k==='r'){RT=0;build();setPaused(false)}
-  else if(k===' '&&e.target.tagName!=='BUTTON'&&e.target.tagName!=='A'){e.preventDefault();setPaused(!paused)}});
+  else if(k===' '&&e.target.tagName!=='A'){e.preventDefault();setPaused(!paused)}});
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)run()});
 RM.addEventListener('change',()=>{cancelAnimationFrame(raf);raf=0;build();run()});
 let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{build();run()},160)});
