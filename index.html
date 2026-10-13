@@ -64,6 +64,12 @@
     .copy .role{margin:.7rem 0 .7rem}
     .copy ul{gap:0}
     .copy a{display:inline-block;padding:.95rem 0 .65rem;min-width:5.5rem}
+    /* Joe's pick (October 12, 2026): on phones the links sit in the top-left cell of the drawn page, in its perspective.
+       The script sizes the list to the cell and maps it onto the cell's four projected corners. */
+    .copy .role:has(+ nav.in-page){margin-bottom:0}
+    .copy nav.in-page{position:fixed;left:0;top:0;transform-origin:0 0;z-index:3}
+    .copy nav.in-page ul{height:100%;justify-content:center;gap:0}
+    .copy nav.in-page a{font-size:1.32rem;padding:.7rem 0 .45rem;min-width:7rem}
     /* phones get a lighter grain, Joe's pick: amount 23, fineness 69, size 50% */
     .grain i:nth-child(1){opacity:.136}
     .grain i:nth-child(2){opacity:.038}
@@ -385,20 +391,33 @@ function step(dt){
 /* ---------- build and playback ---------- */
 const RM=matchMedia('(prefers-reduced-motion: reduce)');
 function restart(all){
+  const dia=BLOCKS.find(b=>b.id==='dia');dia.home=mobile?'C':'A';dia.alt='C';
   TR=[];LATER=[];T=0;busy=false;lastKind='';ERND=mulberry(77);PRND=mulberry(9);
   BLOCKS.forEach(b=>{b.present=false;b.rows=[];b.gen=0;b.cell=b.home});
   BLOCKS.forEach(b=>{if((all||b.id==='bars'||b.id==='zig')&&CELLS[b.home]){b.rows=gen(b.type,CELLS[b.home],b.seed);b.rows.forEach(r=>r.static=1);b.present=true}});
   nextAt=3;drawDoc();fx.clearRect(0,0,W,H);
 }
+function quadMatrix(w,h,p){
+  const[x0,y0]=p[0],[x1,y1]=p[1],[x2,y2]=p[2],[x3,y3]=p[3],dx1=x1-x2,dx2=x3-x2,dy1=y1-y2,dy2=y3-y2,sx=x0-x1+x2-x3,sy=y0-y1+y2-y3,den=dx1*dy2-dx2*dy1,
+    g=(sx*dy2-dx2*sy)/den,k=(dx1*sy-sx*dy1)/den,a=x1-x0+g*x1,b=x3-x0+k*x3,d=y1-y0+g*y1,e=y3-y0+k*y3;
+  return`matrix3d(${[a/w,d/w,0,g/w,b/h,e/h,0,k/h,0,0,1,0,x0,y0,0,1].map(v=>+v.toFixed(6)).join(',')})`;
+}
+function placeNav(){
+  const nav=$('copy').querySelector('nav');if(!nav||!mobile)return;const c=CELLS.A,w=c[2]-c[0],h=c[3]-c[1];
+  nav.style.width=w+'px';nav.style.height=h+'px';
+  nav.style.transform=quadMatrix(w,h,[[c[0],c[1]],[c[2],c[1]],[c[2],c[3]],[c[0],c[3]]].map(q=>proj(q[0],q[1])));
+}
 function build(){
   DPR=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;mobile=W<720;
   [docC,dzC,fxC].forEach(cv=>{cv.width=Math.round(W*DPR);cv.height=Math.round(H*DPR)});
   doc=docC.getContext('2d');dz=dzC.getContext('2d');fx=fxC.getContext('2d');[doc,dz,fx].forEach(c=>c.setTransform(DPR,0,0,DPR,0,0));
+  const nav=$('copy').querySelector('nav');if(nav){nav.classList.toggle('in-page',mobile);if(!mobile)nav.removeAttribute('style')}
   const r=$('copy').getBoundingClientRect();textRight=r.right;
   F=mobile?{x:0,y:r.bottom+8,w:W,h:H-r.bottom-8}:{x:Math.max(r.right+48,W*.3),y:0,w:0,h:H};if(!mobile)F.w=W-F.x;
   xL=F.x;span=F.w;K=mobile?.4:.55;vy=F.y+F.h*(mobile?.26:.44);   /* phones: a gentler tilt, with the eye level nearer the top */
   N=makeNoise(mulberry(11));
   buildStatic();
+  placeNav();
   /* the square's dither grid */
   const c=DZ,q=c.quad,s=3;let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;q.forEach(p=>{x0=Math.min(x0,p[0]);x1=Math.max(x1,p[0]);y0=Math.min(y0,p[1]);y1=Math.max(y1,p[1])});
   c.bb=[x0,y0,x1,y1];const gx=[],gy=[],gt=[],gb=[],gu=[],gv=[],ge=[],eu=6/(x1-x0),ev=6/(y1-y0);
