@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Not found · Joe Garvin</title>
+<meta name="theme-color" content="#ffffff">
+<link rel="preload" href="/fonts/newsreader-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<style>
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/ibm-plex-mono-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/ibm-plex-mono-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Newsreader';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/newsreader-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Newsreader';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/newsreader-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --paper:#ffffff; --ink:#3d4257; --soft:#6f7284; --faint:#d6d8e0;
+    --serif:"Newsreader","Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+    --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  }
+  body{background:var(--paper);color:var(--ink);font-family:var(--serif);-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  a:focus-visible,button:focus-visible{outline:2px solid #6d8db0;outline-offset:3px;border-radius:2px}
+
+  /* the home page's grain: same layers, same settings by screen width */
+  .grain{position:fixed;inset:0;pointer-events:none;z-index:2}
+  .grain i{position:absolute;inset:0;mix-blend-mode:multiply}
+  .grain i:nth-child(1),.grain i:nth-child(2){background-size:110px 110px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.3' numOctaves='1' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .3  0 0 0 0 .26  0 0 0 0 .2  0 0 0 5 -2.7'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .grain i:nth-child(1){opacity:.456}
+  .grain i:nth-child(2){opacity:.126;-webkit-mask-image:var(--mask);mask-image:var(--mask);-webkit-mask-size:900px 900px;mask-size:900px 900px}
+  .grain i:nth-child(3){opacity:.04;background-size:150px 150px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.55' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .3  0 0 0 0 .26  0 0 0 0 .2  0 0 0 6 -3.1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .grain i:nth-child(4){opacity:.52;mix-blend-mode:normal;background-size:130px 130px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='1' seed='9' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 6 -3.5'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  :root{--mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='900'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.006' numOctaves='3' seed='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 5 -2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+  /* the page: a flat sheet, no tilt, in the Work page system */
+  .pg{max-width:1080px;margin:0 auto;padding:0 24px 88px;position:relative;z-index:1}
+  .rh{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 0 14px;border-bottom:1px solid var(--ink);position:relative}
+  .rh::after{content:"";position:absolute;left:0;right:0;bottom:-4.6px;border-bottom:1px solid var(--faint)}
+  .rh-name{font-size:1.28rem;line-height:1;display:flex;align-items:center;gap:11px;white-space:nowrap;padding:6px 0}
+  .rh-name canvas{width:22px;height:22px;display:block}
+  .rh nav{display:flex;gap:18px;font-size:1.1rem;line-height:1}
+  .rh nav a{padding:9px 0 5px;border-bottom:1px solid transparent}
+  .rh nav a:hover{border-bottom-color:var(--faint)}
+  .rh nav a[aria-current],.rh nav a[aria-current]:hover{border-bottom-color:var(--ink)}
+  /* Joe's pick: a quiet title on every interior page, a small mono label */
+  h1{font-family:var(--mono);font-weight:400;font-size:.74rem;letter-spacing:.07em;color:var(--soft);margin-top:40px}
+  .lab{font-family:var(--mono);letter-spacing:.03em;font-size:.7rem;line-height:1.55;color:var(--soft)}
+
+  /* contact. Joe's picks: the address set large, "copy address" and LinkedIn under it, a quiet title, no location line. No form. */
+  .nf{font-size:clamp(1.7rem,6vw,2.6rem);line-height:1.15;letter-spacing:-.012em;margin-top:22px;max-width:18em}
+  .addr{display:inline-block;font-size:clamp(1.7rem,7.4vw,2.9rem);line-height:1.1;letter-spacing:-.012em;margin-top:22px;overflow-wrap:anywhere;
+    background:linear-gradient(var(--ink),var(--ink)) 0 100%/0 1px no-repeat;transition:background-size .35s ease;padding-bottom:2px}
+  .addr:hover,.addr:focus-visible{background-size:100% 1px}
+  .acts{display:flex;flex-wrap:wrap;gap:4px 26px;margin-top:16px}
+  .go{font-family:var(--mono);font-size:.78rem;line-height:1.5;letter-spacing:.03em;padding:6px 0;text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--faint);background:none;border:0;color:inherit;cursor:pointer}
+  .go:hover{text-decoration-color:var(--ink)}
+  @media (min-width:720px){.pg{padding:0 56px 110px}.addr{margin-top:26px}}
+  @media (prefers-reduced-motion:reduce){.addr{transition:none}}
+  @media (max-width:719px){
+    /* phones get a lighter grain, Joe's pick: amount 23, fineness 69, size 50% */
+    .grain i:nth-child(1){opacity:.136}
+    .grain i:nth-child(2){opacity:.038}
+    .grain i:nth-child(3){opacity:.071}
+    .grain i:nth-child(4){opacity:.209}
+  }
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+<div class="pg">
+  <header class="rh">
+    <a href="/" class="rh-name" aria-label="Joe Garvin, home"><canvas id="sq" width="44" height="44" aria-hidden="true"></canvas>Joe Garvin</a>
+    <nav aria-label="Site"><a href="/work.html">work</a><a href="/about.html">about</a><a href="/contact.html">contact</a></nav>
+  </header>
+  <main>
+  <h1>not found</h1>
+  <p class="nf">There’s no page at this address.</p>
+  <div class="acts"><a href="/" class="go">home</a><a href="/work.html" class="go">work</a><a href="/about.html" class="go">about</a><a href="/contact.html" class="go">contact</a></div>
+  </main>
+</div>
+<script>
+/* the small live square in the running head: the home page's drifting tone at 24 updates a second; still with reduced motion on */
+(()=>{
+function mulberry(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const N=(rng=>{const tab=new Float32Array(256),perm=new Uint8Array(512);for(let i=0;i<256;i++){tab[i]=rng();perm[i]=i}
+  for(let i=255;i>0;i--){const j=(rng()*(i+1))|0,t=perm[i];perm[i]=perm[j];perm[j]=t}for(let i=0;i<256;i++)perm[i+256]=perm[i];const s=t=>t*t*(3-2*t);
+  return(x,y)=>{const xi=Math.floor(x),yi=Math.floor(y),xf=x-xi,yf=y-yi,X=xi&255,Y=yi&255,a=tab[perm[X+perm[Y]]],b=tab[perm[X+1+perm[Y]]],c=tab[perm[X+perm[Y+1]]],d=tab[perm[X+1+perm[Y+1]]],u=s(xf),v=s(yf);return a+(b-a)*u+(c-a)*v+(a-b-c+d)*u*v}})(mulberry(11));
+const BAY=[0,8,2,10,12,4,14,6,3,11,1,9,15,7,13,5],RM=matchMedia('(prefers-reduced-motion: reduce)');
+function square(ts){
+  const cv=document.getElementById('sq');if(!cv)return;const c=cv.getContext('2d'),n=11,t=Math.floor(ts*24)/24*.75;c.setTransform(4,0,0,4,0,0);c.clearRect(0,0,n,n);c.fillStyle='#3d4257';
+  for(let y=0;y<n;y++)for(let x=0;x<n;x++){const f=(N(x*.16+t*.9,y*.16-t*.5)-.5)*1.5+(N(x*.4-t*1.3,y*.4+40)-.5)*.5;let tone=Math.max(.12,Math.min(.96,.5+f*.95));if(x===0||y===0||x===n-1||y===n-1)tone=Math.max(tone,.6);
+    if((BAY[(x&3)+4*(y&3)]+.5)/16<tone)c.fillRect(x+.08,y+.08,.72,.72)}
+}
+let raf=0,t0=performance.now(),lastF=-1;
+function frame(now){raf=0;if(document.hidden||RM.matches)return;const ts=(now-t0)/1000,f=Math.floor(ts*24);if(f!==lastF){lastF=f;square(ts)}raf=requestAnimationFrame(frame)}
+function run(){if(!raf&&!document.hidden&&!RM.matches)raf=requestAnimationFrame(frame)}
+document.addEventListener('visibilitychange',run);RM.addEventListener('change',()=>{square(0);run()});
+square(0);run();
+})();
+</script>
+</body>
+</html>
