@@ -57,7 +57,7 @@
 
 
   /* the list. Joe's picks: a quiet title, no lede, and the rows straight after it. Each entry leads with the client; the title follows,
-     with the type under it; the right edge holds only a link. Titles only: no descriptions and no years. Published work first. */
+     with the type under it; the right edge holds only a link. Titles only: no descriptions and no years. Ordered by importance and recency. */
   .entries{list-style:none;margin-top:22px;border-bottom:1px solid var(--faint)}
   .entries li{display:grid;grid-template-columns:minmax(0,1fr);gap:5px 14px;padding:18px 0 20px;border-top:1px solid var(--faint);align-items:baseline}
   .c{font-size:1.08rem;line-height:1.3}
@@ -95,9 +95,47 @@
   <h1>work</h1>
   <ol class="entries">
     <li>
+      <p class="c">Microsoft</p>
+      <div class="body"><h2><a href="microsoft-iq.html">Scale AI using your organization’s intelligence</a></h2><p class="t">ebook</p></div>
+      <a href="microsoft-iq.html" class="go" aria-label="Case study: Scale AI using your organization’s intelligence">case study →</a>
+    </li>
+    <li>
+      <p class="c">Microsoft</p>
+      <div class="body"><h2><a href="azure-essentials-show.html">Azure Essentials Show</a></h2><p class="t">video scripts</p></div>
+      <a href="azure-essentials-show.html" class="go" aria-label="Case study: Azure Essentials Show">case study →</a>
+    </li>
+    <li>
+      <p class="c">Microsoft</p>
+      <div class="body"><h2><a href="app-modernization.html">Modernizing .NET and Java applications</a></h2><p class="t">ebook</p></div>
+      <a href="app-modernization.html" class="go" aria-label="Case study: Modernizing .NET and Java applications">case study →</a>
+    </li>
+    <li>
+      <p class="c">Databricks</p>
+      <div class="body"><h2><a href="https://www.databricks.com/resources/ebook/guide-building-etl-pipelines-sql">Building ETL pipelines with SQL</a></h2><p class="t">ebook</p></div>
+      <a href="https://www.databricks.com/resources/ebook/guide-building-etl-pipelines-sql" class="go" aria-label="Read “Building ETL pipelines with SQL” at Databricks">read ↗</a>
+    </li>
+    <li>
+      <p class="c">City of Seattle</p>
+      <div class="body"><h2>Making underground infrastructure visible</h2><p class="t">strategy</p></div>
+    </li>
+    <li>
+      <p class="c">Microsoft</p>
+      <div class="body"><h2>AI fundamentals for small businesses</h2><p class="t">infographic</p></div>
+    </li>
+    <li>
       <p class="c">Databricks</p>
       <div class="body"><h2><a href="https://www.databricks.com/blog/types-ai-agents-definitions-roles-and-examples">Types of AI agents</a></h2><p class="t">blog post</p></div>
       <a href="https://www.databricks.com/blog/types-ai-agents-definitions-roles-and-examples" class="go" aria-label="Read “Types of AI agents” at Databricks">read ↗</a>
+    </li>
+    <li>
+      <p class="c">Databricks</p>
+      <div class="body"><h2><a href="https://www.databricks.com/glossary/olap">What is OLAP?</a></h2><p class="t">glossary entry</p></div>
+      <a href="https://www.databricks.com/glossary/olap" class="go" aria-label="Read “What is OLAP?” at Databricks">read ↗</a>
+    </li>
+    <li>
+      <p class="c">Red Door Collaborative</p>
+      <div class="body"><h2><a href="ai-content-workflow.html">AI-assisted content production</a></h2><p class="t">AI workflow</p></div>
+      <a href="ai-content-workflow.html" class="go" aria-label="Case study: AI-assisted content production">case study →</a>
     </li>
     <li>
       <p class="c">World Economic Forum</p>
@@ -115,47 +153,9 @@
       <a href="https://uxdesign.cc/building-inclusive-mixed-reality-dont-go-it-alone-c99d221e38e" class="go" aria-label="Read “Building inclusive Mixed Reality” at UX Collective">read ↗</a>
     </li>
     <li>
-      <p class="c">Databricks</p>
-      <div class="body"><h2><a href="https://www.databricks.com/glossary/olap">What is OLAP?</a></h2><p class="t">glossary entry</p></div>
-      <a href="https://www.databricks.com/glossary/olap" class="go" aria-label="Read “What is OLAP?” at Databricks">read ↗</a>
-    </li>
-    <li>
-      <p class="c">Databricks</p>
-      <div class="body"><h2><a href="https://www.databricks.com/resources/ebook/guide-building-etl-pipelines-sql">Building ETL pipelines with SQL</a></h2><p class="t">ebook</p></div>
-      <a href="https://www.databricks.com/resources/ebook/guide-building-etl-pipelines-sql" class="go" aria-label="Read “Building ETL pipelines with SQL” at Databricks">read ↗</a>
-    </li>
-    <li>
       <p class="c">GitHub</p>
       <div class="body"><h2><a href="https://github.com/joe-garvin/claude-workbench">Claude workbench</a></h2><p class="t">Claude skills and guides</p></div>
       <a href="https://github.com/joe-garvin/claude-workbench" class="go" aria-label="View “Claude workbench” at GitHub">view ↗</a>
-    </li>
-    <li>
-      <p class="c">Microsoft</p>
-      <div class="body"><h2><a href="microsoft-iq.html">Scale AI using your organization’s intelligence</a></h2><p class="t">ebook</p></div>
-      <a href="microsoft-iq.html" class="go" aria-label="Case study: Scale AI using your organization’s intelligence">case study →</a>
-    </li>
-    <li>
-      <p class="c">Microsoft</p>
-      <div class="body"><h2><a href="app-modernization.html">Modernizing .NET and Java applications</a></h2><p class="t">ebook</p></div>
-      <a href="app-modernization.html" class="go" aria-label="Case study: Modernizing .NET and Java applications">case study →</a>
-    </li>
-    <li>
-      <p class="c">Microsoft</p>
-      <div class="body"><h2><a href="azure-essentials-show.html">Azure Essentials Show</a></h2><p class="t">video scripts</p></div>
-      <a href="azure-essentials-show.html" class="go" aria-label="Case study: Azure Essentials Show">case study →</a>
-    </li>
-    <li>
-      <p class="c">Red Door Collaborative</p>
-      <div class="body"><h2><a href="ai-content-workflow.html">AI-assisted content production</a></h2><p class="t">AI workflow</p></div>
-      <a href="ai-content-workflow.html" class="go" aria-label="Case study: AI-assisted content production">case study →</a>
-    </li>
-    <li>
-      <p class="c">Microsoft</p>
-      <div class="body"><h2>AI fundamentals for small businesses</h2><p class="t">infographic</p></div>
-    </li>
-    <li>
-      <p class="c">City of Seattle</p>
-      <div class="body"><h2>Making underground infrastructure visible</h2><p class="t">strategy</p></div>
     </li>
   </ol>
   </main>
